@@ -32,7 +32,8 @@ DOCKER_SET_DEBUG_ENV_VARS := \
 	export SSO_PROXY_PORT=8004; \
 	export SSO_PROXY_DEBUG=true; \
 	export SSO_PROXY_SECRET_KEY=debug; \
-	export SSO_PROXY_SSO_SECRET=debug
+	export SSO_PROXY_SSO_SECRET=debug; \
+	export SSO_PROXY_SSO_UPSTREAM=http://sso.trade.great.docker:8004
 
 DOCKER_REMOVE_ALL := \
 	docker ps -a | \
@@ -64,7 +65,8 @@ DEBUG_SET_ENV_VARS := \
 	export SECRET_KEY=debug; \
 	export SSO_SECRET=debug; \
 	export PORT=8003; \
-	export DEBUG=true
+	export DEBUG=true; \
+	export SSO_UPSTREAM=http://sso.trade.great.dev:8004
 
 debug_webserver:
 	$(DEBUG_SET_ENV_VARS); $(DJANGO_WEBSERVER);

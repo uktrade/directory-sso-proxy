@@ -57,6 +57,10 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 # API key shared with clients
 SSO_SECRET = os.environ["SSO_SECRET"]
 
+# Address of SSO server
+SSO_UPSTREAM = os.environ["SSO_UPSTREAM"]
+
+
 # Sentry
 RAVEN_CONFIG = {
     "dsn": os.getenv("SENTRY_DSN"),
