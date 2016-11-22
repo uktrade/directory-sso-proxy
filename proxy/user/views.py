@@ -55,6 +55,4 @@ class NotFoundProxyView(BaseProxyView):
     def dispatch(self, request, *args, **kwargs):
 
         # All requests reaching this view get the path rewritten to '404/'
-        return super(BaseProxyView, self).dispatch(
-            request, '404/', *args, **kwargs
-        )
+        return super(NotFoundProxyView, self).dispatch(request, path='404/')

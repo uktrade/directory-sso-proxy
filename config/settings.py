@@ -54,9 +54,6 @@ USE_TZ = True
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ["SECRET_KEY"]
 
-# API key shared with clients
-SSO_SECRET = os.environ["SSO_SECRET"]
-
 # Address of SSO server
 SSO_UPSTREAM = os.environ["SSO_UPSTREAM"]
 

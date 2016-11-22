@@ -15,6 +15,4 @@ class BaseProxyView(ProxyView):
         if path.startswith('/'):
             path = path[1:]
 
-        return super(BaseProxyView, self).dispatch(
-            request, path, *args, **kwargs
-        )
+        return super(BaseProxyView, self).dispatch(request, path)
