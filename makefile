@@ -66,9 +66,9 @@ docker_remove_all:
 docker_debug: docker_remove_all
 	$(DOCKER_SET_DEBUG_ENV_VARS) && \
 	$(DOCKER_COMPOSE_CREATE_ENVS) && \
-	docker-compose pull && \
-	docker-compose build && \
-	docker-compose run --service-ports webserver make django_webserver
+	$(DOCKER_COMPOSE_REMOVE_AND_PULL) && \
+	docker-compose -f docker-compose-test.yml build && \
+	docker-compose -f docker-compose-test.yml run --service-ports sut make django_webserver
 
 docker_webserver_bash:
 	docker exec -it ssoproxy_webserver_1 sh

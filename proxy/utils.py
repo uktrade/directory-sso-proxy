@@ -12,6 +12,12 @@ from revproxy.views import ProxyView
 class BaseProxyView(ProxyView):
     upstream = settings.SSO_UPSTREAM
 
+    def __init__(self, *args, **kwargs):
+        if self.upstream.endswith('/'):
+            self.upstream = self.upstream[:1]
+
+        super(BaseProxyView, self).__init__(*args, **kwargs)
+
     def dispatch(self, request, *args, **kwargs):
         self.request_headers = self.get_request_headers()
 
@@ -62,6 +68,7 @@ class BaseProxyView(ProxyView):
         signature_header = self.get_signature_header(
             request_url=request_url, request_payload=request_payload
         )
+        self.request_headers["X-Forwarded-For"] = request.get_host()
         self.request_headers = {**self.request_headers, **signature_header}
 
         try:
