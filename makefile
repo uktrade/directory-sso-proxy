@@ -29,7 +29,7 @@ docker_run:
 	docker-compose up --build
 
 DOCKER_SET_DEBUG_ENV_VARS := \
-	export SSO_PROXY_PORT=8004; \
+	export SSO_PROXY_PORT=8005; \
 	export SSO_PROXY_DEBUG=true; \
 	export SSO_PROXY_SECRET_KEY=debug; \
 	export SSO_PROXY_SSO_SECRET=debug; \
@@ -64,7 +64,7 @@ docker_test: docker_remove_all
 DEBUG_SET_ENV_VARS := \
 	export SECRET_KEY=debug; \
 	export SSO_SECRET=debug; \
-	export PORT=8003; \
+	export PORT=8005; \
 	export DEBUG=true; \
 	export SSO_UPSTREAM=http://sso.trade.great.dev:8004
 
