@@ -14,7 +14,6 @@ from proxy.user.views import (
     SSOLandingPageProxyView,
     SignupProxyView,
     PasswordResetProxyView,
-    NotFoundProxyView,
 )
 from proxy.healthcheck.views import HealthCheckAPIProxyView
 from proxy.oauth2.views_user import UserRetrieveAPIProxyView
@@ -23,6 +22,7 @@ from proxy.oauth2.views import (
     TokenProxyView,
     RevokeTokenProxyView
 )
+from proxy.utils import NotFoundProxyView, StaticProxyView
 
 
 handler404 = NotFoundProxyView.as_view()
@@ -127,6 +127,11 @@ urlpatterns = [
         r"^$",
         SSOLandingPageProxyView.as_view(),
         name="sso_root_proxy"
+    ),
+    url(
+        r"^static/",
+        StaticProxyView.as_view(),
+        name="static_proxy"
     ),
     url(
         r'^accounts/',

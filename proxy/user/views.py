@@ -47,12 +47,3 @@ class PasswordChangeProxyView(BaseProxyView):
 
 class PasswordResetDoneProxyView(BaseProxyView):
     pass
-
-
-class NotFoundProxyView(BaseProxyView):
-    """Redirects 404 to SSO in order to retrieve user context."""
-
-    def dispatch(self, request, *args, **kwargs):
-
-        # All requests reaching this view get the path rewritten to '404/'
-        return super(NotFoundProxyView, self).dispatch(request, path='404/')

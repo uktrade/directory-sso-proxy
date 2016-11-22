@@ -3,29 +3,36 @@ import urllib3
 import urllib.parse as urlparse
 
 from django.conf import settings
-from django.utils.six.moves.urllib.parse import urlencode, quote_plus
+from django.shortcuts import redirect
 
-from revproxy.views import ProxyView, QUOTE_SAFE
-from revproxy.utils import encode_items
+from revproxy.response import get_django_response
+from revproxy.views import ProxyView
 
 
 class BaseProxyView(ProxyView):
-
     upstream = settings.SSO_UPSTREAM
 
     def dispatch(self, request, *args, **kwargs):
+        self.request_headers = self.get_request_headers()
 
-        path = kwargs.get('path') or request.get_full_path()
+        redirect_to = self._format_path_to_redirect(request)
+        if redirect_to:
+            return redirect(redirect_to)
 
-        # revproxy requires the path to not start with a slash
-        if path.startswith('/'):
-            path = path[1:]
+        upstream_response = self.get_upstream_response(request)
 
-        return super(BaseProxyView, self).dispatch(request, path)
+        self._replace_host_on_redirect_location(request, upstream_response)
+        self._set_content_type(request, upstream_response)
+
+        response = get_django_response(upstream_response)
+
+        self.log.debug("Response returned: %s", response)
+
+        return response
 
     def get_signature_header(self, request_url, request_payload):
         url = urlparse.urlsplit(request_url)
-        path = bytes(url.path or '/', "utf-8")
+        path = bytes(url.path, "utf-8")
 
         if url.query:
             path += bytes("?{}".format(url.query), "utf-8")
@@ -40,28 +47,25 @@ class BaseProxyView(ProxyView):
 
         return {"X-Proxy-Signature": signature}
 
-    def _created_proxy_response(self, request, path):
+    def get_upstream(self):
+        return super(BaseProxyView, self).get_upstream(path=None)
+
+    def get_upstream_response(self, request, *args, **kwargs):
         request_payload = request.body
 
         self.log.debug("Request headers: %s", self.request_headers)
 
-        path = quote_plus(path.encode('utf8'), QUOTE_SAFE)
+        request_url = self.get_upstream() + request.get_full_path()
 
-        request_url = self.get_upstream(path) + path
         self.log.debug("Request URL: %s", request_url)
 
-        if request.GET:
-            get_data = encode_items(request.GET.lists())
-            request_url += '?' + urlencode(get_data)
-            self.log.debug("Request URL: %s", request_url)
+        signature_header = self.get_signature_header(
+            request_url=request_url, request_payload=request_payload
+        )
+        self.request_headers = {**self.request_headers, **signature_header}
 
         try:
-            signature_header = self.get_signature_header(
-                request_url=request_url, request_payload=request_payload
-            )
-            self.request_headers = {**self.request_headers, **signature_header}
-
-            proxy_response = self.http.urlopen(
+            upstream_response = self.http.urlopen(
                 request.method,
                 request_url,
                 redirect=False,
@@ -71,10 +75,25 @@ class BaseProxyView(ProxyView):
                 decode_content=False,
                 preload_content=False
             )
-            self.log.debug("Proxy response header: %s",
-                           proxy_response.getheaders())
+            self.log.debug(
+                "Proxy response header: %s",
+                upstream_response.getheaders()
+            )
         except urllib3.exceptions.HTTPError as error:
             self.log.exception(error)
             raise
+        else:
+            return upstream_response
 
-        return proxy_response
+
+class NotFoundProxyView(BaseProxyView):
+    """Redirects 404 to SSO in order to retrieve user context."""
+
+    def dispatch(self, request, *args, **kwargs):
+
+        # All requests reaching this view get the path rewritten to '404/'
+        return super(NotFoundProxyView, self).dispatch(request, path='404/')
+
+
+class StaticProxyView(BaseProxyView):
+    pass
