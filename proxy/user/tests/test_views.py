@@ -11,6 +11,13 @@ def test_account_signup(client):
     assert response.status_code == 200
 
 
+def test_account_signup_next(client):
+    response = client.get(reverse('account_signup_proxy') + (
+        '?next=http%3A//www.dev.directory.uktrade.io/register/company'
+    ))
+    assert response.status_code == 200
+
+
 def test_account_login(client):
     response = client.get(reverse('account_login_proxy'))
     assert response.status_code == 200
