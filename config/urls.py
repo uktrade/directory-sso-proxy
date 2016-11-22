@@ -124,10 +124,6 @@ api_urlpatterns = [
 
 urlpatterns = [
     url(
-        r"^",
-        include('directory_constants.urls', namespace='constants')
-    ),
-    url(
         r"^$",
         SSOLandingPageProxyView.as_view(),
         name="sso_root_proxy"

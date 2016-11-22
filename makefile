@@ -31,13 +31,13 @@ docker_run:
 DOCKER_SET_DEBUG_ENV_VARS := \
 	export SSO_PROXY_PORT=8004; \
 	export SSO_PROXY_DEBUG=true; \
+	export SSO_PROXY_SIGNATURE_SECRET=proxy_signature_debug; \
 	export SSO_PROXY_SECRET_KEY=debug; \
-	export SSO_PROXY_SSO_SECRET=debug; \
 	export SSO_PROXY_SSO_UPSTREAM=http://sso.trade.great.docker:8003; \
 	export SSO_PORT=8003; \
 	export SSO_DEBUG=true; \
 	export SSO_SECRET_KEY=debug; \
-	export SSO_API_SECRET=debug; \
+	export SSO_API_SIGNATURE_SECRET=api_signature_debug; \
 	export SSO_POSTGRES_USER=debug; \
 	export SSO_POSTGRES_PASSWORD=debug; \
 	export SSO_POSTGRES_DB=sso_debug; \
@@ -82,7 +82,7 @@ docker_test: docker_remove_all
 
 DEBUG_SET_ENV_VARS := \
 	export SECRET_KEY=debug; \
-	export SSO_SECRET=debug; \
+	export SIGNATURE_SECRET=proxy_signature_debug; \
 	export PORT=8004; \
 	export DEBUG=true; \
 	export SSO_UPSTREAM=http://sso.trade.great.dev:8003
