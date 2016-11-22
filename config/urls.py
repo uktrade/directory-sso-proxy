@@ -14,6 +14,7 @@ from proxy.user.views import (
     SSOLandingPageProxyView,
     SignupProxyView,
     PasswordResetProxyView,
+    NotFoundProxyView,
 )
 from proxy.healthcheck.views import HealthCheckAPIProxyView
 from proxy.oauth2.views_user import UserRetrieveAPIProxyView
@@ -23,6 +24,8 @@ from proxy.oauth2.views import (
     RevokeTokenProxyView
 )
 
+
+handler404 = NotFoundProxyView.as_view()
 
 allauth_urlpatterns = [
     url(
@@ -122,7 +125,7 @@ api_urlpatterns = [
 urlpatterns = [
     url(
         r"^",
-        include('directory_constants.urls', namespace='constants_proxy')
+        include('directory_constants.urls', namespace='constants')
     ),
     url(
         r"^$",
