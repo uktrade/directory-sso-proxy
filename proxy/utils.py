@@ -68,7 +68,7 @@ class BaseProxyView(ProxyView):
         signature_header = self.get_signature_header(
             request_url=request_url, request_payload=request_payload
         )
-        self.request_headers["X-Forwarded-For"] = request.get_host()
+        self.request_headers["X-Forwarded-Host"] = request.get_host()
         self.request_headers = {**self.request_headers, **signature_header}
 
         try:
