@@ -1,9 +1,21 @@
+import re
+
 from django.core.urlresolvers import reverse
 
 
 def test_404(client):
     response = client.get('/asdf/')
     assert response.status_code == 404
+
+
+def test_static(client):
+    account_signup_response = client.get(reverse('account_signup_proxy'))
+    static_css_pattern = r'/static/(.*?)\.css'
+    match = re.search(static_css_pattern, str(account_signup_response.content))
+    assert match
+
+    response = client.get(match.group())
+    assert response.status_code == 200
 
 
 def test_account_signup(client):
@@ -13,7 +25,7 @@ def test_account_signup(client):
 
 def test_account_signup_next(client):
     response = client.get(reverse('account_signup_proxy') + (
-        '?next=http%3A//www.dev.directory.uktrade.io/register/company'
+        '?next=http%3A//www.example.com/test/next'
     ))
     assert response.status_code == 200
 
@@ -46,6 +58,15 @@ def test_account_confirm_email(client):
     assert response.status_code == 200
 
 
+def test_account_confirm_email_next(client):
+    response = client.get(reverse(
+        'account_confirm_email_proxy',
+        kwargs={'key': 'asdf'}
+    ) + '?next=http%3A//www.example.com/test/next')
+
+    assert response.status_code == 200
+
+
 def test_account_set_password(client):
     response = client.get(reverse('account_set_password_proxy'))
     assert response.status_code == 302
@@ -53,6 +74,13 @@ def test_account_set_password(client):
 
 def test_account_reset_password(client):
     response = client.get(reverse('account_reset_password_proxy'))
+    assert response.status_code == 200
+
+
+def test_account_reset_password_next(client):
+    response = client.get(reverse('account_reset_password_proxy') + (
+        '?next=http%3A//www.example.com/test/next'
+    ))
     assert response.status_code == 200
 
 
