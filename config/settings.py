@@ -12,6 +12,7 @@ DEBUG = True if (os.getenv('DEBUG') == 'true') else False
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
+    'raven.contrib.django.raven_compat',
     'revproxy',
     'proxy'
 ]
