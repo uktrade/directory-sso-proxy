@@ -22,7 +22,7 @@ from proxy.oauth2.views import (
     TokenProxyView,
     RevokeTokenProxyView
 )
-from proxy.utils import NotFoundProxyView, StaticProxyView
+from proxy.utils import NotFoundProxyView, StaticProxyView, AdminProxyView
 
 
 handler404 = NotFoundProxyView.as_view()
@@ -132,6 +132,11 @@ urlpatterns = [
         r"^static/",
         StaticProxyView.as_view(),
         name="static_proxy"
+    ),
+    url(
+        r"^admin/",
+        AdminProxyView.as_view(),
+        name="admin_proxy"
     ),
     url(
         r'^accounts/',

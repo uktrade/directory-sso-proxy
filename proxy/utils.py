@@ -104,3 +104,7 @@ class NotFoundProxyView(BaseProxyView):
 
 class StaticProxyView(BaseProxyView):
     pass
+
+
+class AdminProxyView(BaseProxyView):
+    pass
