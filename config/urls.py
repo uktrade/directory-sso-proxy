@@ -1,6 +1,9 @@
 from django.conf.urls import url, include
 
-from proxy.api.views_user import SessionUserAPIProxyView
+from proxy.api.views_user import (
+    SessionUserAPIProxyView,
+    LastLoginAPIProxyView,
+)
 from proxy.user.views import (
     AccountInactiveProxyView,
     EmailVerificationSentProxyView,
@@ -119,6 +122,11 @@ api_urlpatterns = [
         r'^session-user/$',
         SessionUserAPIProxyView.as_view(),
         name="session_user_proxy"
+    ),
+    url(
+        r'^last-login/$',
+        LastLoginAPIProxyView.as_view(),
+        name="last_login_proxy"
     ),
 ]
 
