@@ -98,12 +98,14 @@ debug_test:
 
 debug: test_requirements debug_test
 
+smoke_tests:
+	cd $(mktemp -d) && \
+	git clone https://github.com/uktrade/directory-tests && \
+	cd directory-tests && \
+	make docker_smoke_test
+
 heroku_deploy_dev:
 	docker build -t registry.heroku.com/directory-sso-proxy-dev/web .
 	docker push registry.heroku.com/directory-sso-proxy-dev/web
 
-heroku_deploy_demo:
-	docker build -t registry.heroku.com/directory-sso-proxy-demo/web .
-	docker push registry.heroku.com/directory-sso-proxy-demo/web
-
-.PHONY: build clean test_requirements docker_test docker_run docker_debug docker_webserver_bash docker_test debug_webserver debug_test debug heroku_deploy_dev heroku_deploy_demo
+.PHONY: build clean test_requirements docker_test docker_run docker_debug docker_webserver_bash docker_test debug_webserver debug_test debug heroku_deploy_dev smoke_tests
