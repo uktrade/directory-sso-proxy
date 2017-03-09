@@ -6,7 +6,7 @@ services:
     env_file: ./docker/directory-sso/.env-postgres.test
 
   directory_sso_webserver:
-    image: ukti/directory-sso:signature_rejection_middleware
+    image: ukti/directory-sso:latest
     depends_on: [directory_sso_postgres]
     links: [directory_sso_postgres]
     container_name: sso.trade.great.docker
