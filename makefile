@@ -38,13 +38,15 @@ DOCKER_SET_DEBUG_ENV_VARS := \
 	export SSO_DEBUG=true; \
 	export SSO_SECRET_KEY=debug; \
 	export SSO_API_SIGNATURE_SECRET=api_signature_debug; \
+	export SSO_PROXY_SIGNATURE_SECRET=proxy_signature_debug; \
 	export SSO_POSTGRES_USER=debug; \
 	export SSO_POSTGRES_PASSWORD=debug; \
 	export SSO_POSTGRES_DB=sso_debug; \
-	export SSO_DATABASE_URL=postgres://debug:debug@directory_sso_postgres:5432/sso_debug; \
+	export SSO_DATABASE_URL=postgres://debug:debug@postgres:5432/sso_debug; \
 	export SSO_SESSION_COOKIE_DOMAIN=.trade.great.dev; \
 	export SSO_SSO_SESSION_COOKIE=debug_sso_session_cookie; \
-	export SSO_SSO_SESSION_COOKIE_SECURE=false; \
+	export SSO_CSRF_COOKIE_SECURE=false; \
+	export SSO_SESSION_COOKIE_SECURE=false; \
 	export SSO_EMAIL_HOST=debug; \
 	export SSO_EMAIL_PORT=debug; \
 	export SSO_EMAIL_HOST_USER=debug; \
@@ -54,7 +56,8 @@ DOCKER_SET_DEBUG_ENV_VARS := \
 	export SSO_REDIRECT_FIELD_NAME=next; \
 	export SSO_ALLOWED_REDIRECT_DOMAINS=example.com,exportingisgreat.gov.uk,great.dev; \
 	export SSO_UTM_COOKIE_DOMAIN=.great.dev; \
-	export SSO_FEATURE_NEW_HEADER_FOOTER_ENABLED=true
+	export SSO_FEATURE_NEW_HEADER_FOOTER_ENABLED=true; \
+	export SSO_PROFILE_URL=http://profile.trade.great.dev:8006
 
 DOCKER_REMOVE_ALL := \
 	docker ps -a | \
