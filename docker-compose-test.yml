@@ -1,17 +1,17 @@
 version: '2'
 services:
 
-  directory_sso_postgres:
+  postgres:
     image: postgres:9.5.2
     env_file: ./docker/directory-sso/.env-postgres.test
 
   directory_sso_webserver:
     image: ukti/directory-sso:latest
-    depends_on: [directory_sso_postgres]
-    links: [directory_sso_postgres]
+    depends_on: [postgres]
+    links: [postgres]
     container_name: sso.trade.great.docker
     working_dir: /usr/src/app
-    entrypoint: dockerize -wait tcp://directory_sso_postgres:5432 -timeout 60s
+    entrypoint: dockerize -wait tcp://postgres:5432 -timeout 60s
     command: ./docker/cmd-integration-test-webserver.sh
     ports: ["8003:8003"]
     env_file: ./docker/directory-sso/.env.test
