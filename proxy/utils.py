@@ -1,12 +1,13 @@
-from hashlib import sha256
 import urllib3
-import urllib.parse as urlparse
 
 from django.conf import settings
+from django.http import HttpResponseForbidden
 from django.shortcuts import redirect
 
 from revproxy.response import get_django_response
 from revproxy.views import ProxyView
+
+import signature
 
 
 class BaseProxyView(ProxyView):
@@ -19,6 +20,9 @@ class BaseProxyView(ProxyView):
         super(BaseProxyView, self).__init__(*args, **kwargs)
 
     def dispatch(self, request, *args, **kwargs):
+        if signature.sso_client_checker.test_signature(request) is False:
+            return HttpResponseForbidden()
+
         self.request_headers = self.get_request_headers()
 
         redirect_to = self._format_path_to_redirect(request)
@@ -36,22 +40,8 @@ class BaseProxyView(ProxyView):
 
         return response
 
-    def get_signature_header(self, request_url, request_payload):
-        url = urlparse.urlsplit(request_url)
-        path = bytes(url.path, "utf-8")
-
-        if url.query:
-            path += bytes("?{}".format(url.query), "utf-8")
-
-        salt = bytes(settings.SIGNATURE_SECRET, "utf-8")
-        body = request_payload or b""
-
-        if isinstance(body, str):
-            body = bytes(body, "utf-8")
-
-        signature = sha256(path + body + salt).hexdigest()
-
-        return {"X-Proxy-Signature": signature}
+    def get_signature_header(self, url, body):
+        return signature.sso_signer.get_signature_headers(url=url, body=body)
 
     def get_upstream(self):
         return super(BaseProxyView, self).get_upstream(path=None)
@@ -65,11 +55,11 @@ class BaseProxyView(ProxyView):
 
         self.log.debug("Request URL: %s", request_url)
 
-        signature_header = self.get_signature_header(
-            request_url=request_url, request_payload=request_payload
+        signature_headers = self.get_signature_header(
+            url=request_url, body=request_payload
         )
         self.request_headers["X-Forwarded-Host"] = request.get_host()
-        self.request_headers = {**self.request_headers, **signature_header}
+        self.request_headers = {**self.request_headers, **signature_headers}
 
         try:
             upstream_response = self.http.urlopen(
