@@ -7,7 +7,7 @@ from django.shortcuts import redirect
 from revproxy.response import get_django_response
 from revproxy.views import ProxyView
 
-import signature
+from config import signature
 
 
 class BaseProxyView(ProxyView):
@@ -20,8 +20,6 @@ class BaseProxyView(ProxyView):
         super(BaseProxyView, self).__init__(*args, **kwargs)
 
     def dispatch(self, request, *args, **kwargs):
-        if signature.sso_client_checker.test_signature(request) is False:
-            return HttpResponseForbidden()
 
         self.request_headers = self.get_request_headers()
 
@@ -98,3 +96,11 @@ class StaticProxyView(BaseProxyView):
 
 class AdminProxyView(BaseProxyView):
     pass
+
+
+class CheckSignatureMixin:
+
+    def dispatch(self, request, *args, **kwargs):
+        if signature.sso_client_checker.test_signature(request) is False:
+            return HttpResponseForbidden()
+        return super().dispatch(request, *args, **kwargs)
