@@ -34,7 +34,8 @@ def test_inactive(client):
 
 
 def test_account_email_verification_sent(client):
-    response = client.get(reverse('account_email_verification_sent_proxy'))
+    url = reverse('account_email_verification_sent_proxy')
+    response = client.get(url)
     assert response.status_code == 200
 
 

@@ -1,9 +1,9 @@
-from proxy.utils import BaseProxyView
+from proxy.utils import BaseProxyView, CheckSignatureMixin
 
 
-class SessionUserAPIProxyView(BaseProxyView):
+class SessionUserAPIProxyView(CheckSignatureMixin, BaseProxyView):
     pass
 
 
-class LastLoginAPIProxyView(BaseProxyView):
+class LastLoginAPIProxyView(CheckSignatureMixin, BaseProxyView):
     pass
