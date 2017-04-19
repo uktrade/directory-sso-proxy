@@ -4,4 +4,4 @@ from django.conf import settings
 
 
 sso_signer = RequestSigner(settings.SIGNATURE_SECRET)
-sso_client_checker = RequestSignatureChecker(settings.SSO_CLIENT_KEY)
+sso_client_checker = RequestSignatureChecker(settings.SSO_SIGNATURE_SECRET)
