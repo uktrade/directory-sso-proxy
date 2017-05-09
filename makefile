@@ -74,7 +74,7 @@ docker_debug: docker_remove_all
 	$(DOCKER_COMPOSE_CREATE_ENVS) && \
 	$(DOCKER_COMPOSE_REMOVE_AND_PULL) && \
 	docker-compose build && \
-	docker-compose up
+	docker-compose run --service-ports webserver make django_webserver
 
 docker_webserver_bash:
 	docker exec -it ssoproxy_webserver_1 sh
