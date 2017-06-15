@@ -9,9 +9,13 @@ test_requirements:
 
 FLAKE8 := flake8 . --exclude=migrations,.venv
 PYTEST := pytest . --cov=. $(pytest_args) --capture=no
+CODECOV := \
+	if [ "$$CODECOV_REPO_TOKEN" != "" ]; then \
+	   codecov --token=$$CODECOV_REPO_TOKEN ;\
+	fi
 
 test:
-	$(FLAKE8) && $(PYTEST)
+	$(FLAKE8) && $(PYTEST) && $(CODECOV)
 
 DJANGO_WEBSERVER := \
 	python manage.py migrate; \
