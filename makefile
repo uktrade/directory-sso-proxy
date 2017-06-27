@@ -61,7 +61,10 @@ DOCKER_SET_DEBUG_ENV_VARS := \
 	export SSO_UTM_COOKIE_DOMAIN=.great.dev; \
 	export SSO_FEATURE_NEW_HEADER_FOOTER_ENABLED=true; \
 	export SSO_SIGNATURE_SECRET=signature_secret_debug; \
-	export SSO_SSO_PROFILE_URL=http://profile.trade.great.dev:8006
+	export SSO_SSO_PROFILE_URL=http://profile.trade.great.dev:8006; \
+	export SSO_DIRECTORY_API_EXTERNAL_SIGNATURE_SECRET=debug; \
+	export SSO_DIRECTORY_API_EXTERNAL_CLIENT_BASE_URL=http://buyer.trade.great.dev:8001/api/external/; \
+	export SSO_EXOPS_APPLICATION_CLIENT_ID=debug
 
 
 DOCKER_REMOVE_ALL := \
