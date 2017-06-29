@@ -66,6 +66,9 @@ DOCKER_SET_DEBUG_ENV_VARS := \
 	export SSO_DIRECTORY_API_EXTERNAL_CLIENT_BASE_URL=http://buyer.trade.great.dev:8001/api/external/; \
 	export SSO_EXOPS_APPLICATION_CLIENT_ID=debug
 
+docker_test_env_files:
+	$(DOCKER_SET_DEBUG_ENV_VARS) && \
+	$(DOCKER_COMPOSE_CREATE_ENVS)
 
 DOCKER_REMOVE_ALL := \
 	docker ps -a | \
