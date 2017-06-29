@@ -115,11 +115,11 @@ debug_test:
 
 debug: test_requirements debug_test
 
-smoke_tests:
+integration_tests:
 	cd $(mktemp -d) && \
 	git clone https://github.com/uktrade/directory-tests && \
 	cd directory-tests && \
-	make docker_smoke_test
+	make docker_integration_tests
 
 heroku_deploy_dev:
 	docker build -t registry.heroku.com/directory-sso-proxy-dev/web .
