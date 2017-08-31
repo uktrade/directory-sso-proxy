@@ -39,6 +39,8 @@ DOCKER_SET_DEBUG_ENV_VARS := \
 	export SSO_PROXY_SSO_SIGNATURE_SECRET=signature_secret_debug; \
 	export SSO_PROXY_SECRET_KEY=debug; \
 	export SSO_PROXY_SSO_UPSTREAM=http://sso.trade.great.docker:8003; \
+	export SSO_PROXY_PYTHONWARNINGS=all; \
+	export SSO_PROXY_PYTHONDEBUG=true; \
 	export SSO_PORT=8003; \
 	export SSO_DEBUG=true; \
 	export SSO_SECRET_KEY=debug; \
@@ -107,7 +109,9 @@ DEBUG_SET_ENV_VARS := \
 	export PORT=8004; \
 	export DEBUG=true; \
 	export SSO_UPSTREAM=http://sso.trade.great.dev:8003; \
-	export SECURE_HSTS_SECONDS=0
+	export SECURE_HSTS_SECONDS=0; \
+	export PYTHONWARNINGS=all; \
+	export PYTHONDEBUG=true
 
 debug_webserver:
 	$(DEBUG_SET_ENV_VARS); $(DJANGO_WEBSERVER);
