@@ -7,3 +7,7 @@ class SessionUserAPIProxyView(CheckSignatureMixin, BaseProxyView):
 
 class LastLoginAPIProxyView(CheckSignatureMixin, BaseProxyView):
     pass
+
+
+class PasswordCheckAPIView(CheckSignatureMixin, BaseProxyView):
+    pass
