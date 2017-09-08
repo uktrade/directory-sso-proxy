@@ -1,12 +1,11 @@
 # directory-sso-proxy
 
-## Build status
+[![code-climate-image]][code-climate]
+[![circle-ci-image]][circle-ci]
+[![codecov-image]][codecov]
+[![gemnasium-image]][gemnasium]
 
-[![CircleCI](https://circleci.com/gh/uktrade/directory-sso-proxy/tree/master.svg?style=svg)](https://circleci.com/gh/uktrade/directory-sso-proxy/tree/master)
-
-## Coverage
-
-[![codecov](https://codecov.io/gh/uktrade/directory-sso-proxy/branch/master/graph/badge.svg)](https://codecov.io/gh/uktrade/directory-sso-proxy)
+---
 
 ## Requirements
 [Docker >= 1.10](https://docs.docker.com/engine/installation/)
@@ -50,3 +49,16 @@ Provides defaults for all environment variables.
 ### Run debug tests
 
     $ make debug_test
+
+
+[code-climate-image]: https://codeclimate.com/github/uktrade/directory-sso-proxy/badges/issue_count.svg
+[code-climate]: https://codeclimate.com/github/uktrade/directory-sso-proxy
+
+[circle-ci-image]: https://circleci.com/gh/uktrade/directory-sso-proxy/tree/master.svg?style=svg
+[circle-ci]: https://circleci.com/gh/uktrade/directory-sso-proxy/tree/master
+
+[codecov-image]: https://codecov.io/gh/uktrade/directory-sso-proxy/branch/master/graph/badge.svg
+[codecov]: https://codecov.io/gh/uktrade/directory-sso-proxy
+
+[gemnasium-image]: https://gemnasium.com/badges/github.com/uktrade/directory-sso-proxy.svg
+[gemnasium]: https://gemnasium.com/github.com/uktrade/directory-sso-proxy
