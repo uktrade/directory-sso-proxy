@@ -3,6 +3,7 @@ from django.conf.urls import url, include
 from proxy.api.views_user import (
     SessionUserAPIProxyView,
     LastLoginAPIProxyView,
+    PasswordCheckAPIView,
 )
 from proxy.user.views import (
     AccountInactiveProxyView,
@@ -127,6 +128,11 @@ api_urlpatterns = [
         r'^last-login/$',
         LastLoginAPIProxyView.as_view(),
         name="last_login_proxy"
+    ),
+    url(
+        r'^password-check/$',
+        PasswordCheckAPIView.as_view(),
+        name='password_check'
     ),
 ]
 
