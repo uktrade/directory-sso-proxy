@@ -38,9 +38,6 @@ class BaseProxyView(ProxyView):
 
         return response
 
-    def get_signature_header(self, url, body):
-        return signature.sso_signer.get_signature_headers(url=url, body=body)
-
     def get_upstream(self):
         return super(BaseProxyView, self).get_upstream(path=None)
 
@@ -53,9 +50,13 @@ class BaseProxyView(ProxyView):
 
         self.log.debug("Request URL: %s", request_url)
 
-        signature_headers = self.get_signature_header(
-            url=request_url, body=request_payload
+        signature_headers = signature.sso_signer.get_signature_headers(
+            url=request_url,
+            body=request_payload,
+            method=request.method,
+            content_type=self.request_headers.get('Content-Type'),
         )
+
         self.request_headers["X-Forwarded-Host"] = request.get_host()
         self.request_headers = {**self.request_headers, **signature_headers}
 
