@@ -21,5 +21,5 @@ def test_token_proxy(client):
 
 def test_revoke_token_proxy(client):
     url = reverse('oauth2_provider_proxy:revoke_token_proxy')
-    response = client.post(url)
+    response = client.post(url, content_type='application/json')
     assert response.status_code == 400
