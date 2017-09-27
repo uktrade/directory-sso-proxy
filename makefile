@@ -67,7 +67,8 @@ DOCKER_SET_DEBUG_ENV_VARS := \
 	export SSO_EXOPS_APPLICATION_CLIENT_ID=debug; \
 	export SSO_CACHE_BACKEND=locmem; \
 	export SSO_PYTHONWARNINGS=all; \
-	export SSO_PYTHONDEBUG=true
+	export SSO_PYTHONDEBUG=true; \
+	export SSO_PROXY_SECURE_HSTS_SECONDS=0
 
 docker_test_env_files:
 	$(DOCKER_SET_DEBUG_ENV_VARS) && \
@@ -105,7 +106,8 @@ DEBUG_SET_ENV_VARS := \
 	export SSO_SIGNATURE_SECRET=api_signature_debug; \
 	export PORT=8004; \
 	export DEBUG=true; \
-	export SSO_UPSTREAM=http://sso.trade.great.dev:8003
+	export SSO_UPSTREAM=http://sso.trade.great.dev:8003; \
+	export SECURE_HSTS_SECONDS=0
 
 debug_webserver:
 	$(DEBUG_SET_ENV_VARS); $(DJANGO_WEBSERVER);
