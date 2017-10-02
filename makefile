@@ -39,6 +39,8 @@ DOCKER_SET_DEBUG_ENV_VARS := \
 	export SSO_PROXY_SSO_SIGNATURE_SECRET=signature_secret_debug; \
 	export SSO_PROXY_SECRET_KEY=debug; \
 	export SSO_PROXY_SSO_UPSTREAM=http://sso.trade.great.docker:8003; \
+	export SSO_PROXY_PYTHONWARNINGS=all; \
+	export SSO_PROXY_PYTHONDEBUG=true; \
 	export SSO_PORT=8003; \
 	export SSO_DEBUG=true; \
 	export SSO_SECRET_KEY=debug; \
@@ -107,7 +109,9 @@ DEBUG_SET_ENV_VARS := \
 	export PORT=8004; \
 	export DEBUG=true; \
 	export SSO_UPSTREAM=http://sso.trade.great.dev:8003; \
-	export SECURE_HSTS_SECONDS=0
+	export SECURE_HSTS_SECONDS=0; \
+	export PYTHONWARNINGS=all; \
+	export PYTHONDEBUG=true
 
 debug_webserver:
 	$(DEBUG_SET_ENV_VARS); $(DJANGO_WEBSERVER);
@@ -129,5 +133,13 @@ integration_tests:
 heroku_deploy_dev:
 	docker build -t registry.heroku.com/directory-sso-proxy-dev/web .
 	docker push registry.heroku.com/directory-sso-proxy-dev/web
+
+compile_requirements:
+	python3 -m piptools compile requirements.in
+
+compile_test_requirements:
+	python3 -m piptools compile requirements_test.in
+
+compile_all_requirements: compile_requirements compile_test_requirements
 
 .PHONY: build clean test_requirements docker_test docker_run docker_debug docker_webserver_bash docker_test debug_webserver debug_test debug heroku_deploy_dev smoke_tests
