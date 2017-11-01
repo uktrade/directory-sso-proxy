@@ -41,6 +41,7 @@ DOCKER_SET_DEBUG_ENV_VARS := \
 	export SSO_PROXY_SSO_UPSTREAM=http://sso.trade.great.docker:8003; \
 	export SSO_PROXY_PYTHONWARNINGS=all; \
 	export SSO_PROXY_PYTHONDEBUG=true; \
+	export SSO_PROXY_SECURE_HSTS_SECONDS=0; \
 	export SSO_PORT=8003; \
 	export SSO_DEBUG=true; \
 	export SSO_SECRET_KEY=debug; \
@@ -69,8 +70,7 @@ DOCKER_SET_DEBUG_ENV_VARS := \
 	export SSO_EXOPS_APPLICATION_CLIENT_ID=debug; \
 	export SSO_CACHE_BACKEND=locmem; \
 	export SSO_PYTHONWARNINGS=all; \
-	export SSO_PYTHONDEBUG=true; \
-	export SSO_PROXY_SECURE_HSTS_SECONDS=0
+	export SSO_PYTHONDEBUG=true
 
 docker_test_env_files:
 	$(DOCKER_SET_DEBUG_ENV_VARS) && \
