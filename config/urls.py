@@ -19,7 +19,7 @@ from proxy.user.views import (
     SignupProxyView,
     PasswordResetProxyView,
 )
-from proxy.healthcheck.views import HealthCheckAPIProxyView
+from proxy.healthcheck.views import HealthCheckAPIProxyView, PingAPIProxyView
 from proxy.oauth2.views_user import UserRetrieveAPIProxyView
 from proxy.oauth2.views import (
     AuthorizationProxyView,
@@ -118,6 +118,11 @@ api_urlpatterns = [
         r'^$',
         HealthCheckAPIProxyView.as_view(),
         name="health_check_proxy"
+    ),
+    url(
+        r'^ping/$',
+        PingAPIProxyView.as_view(),
+        name="ping_proxy"
     ),
     url(
         r'^session-user/$',
