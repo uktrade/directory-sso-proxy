@@ -19,7 +19,9 @@ from proxy.user.views import (
     SignupProxyView,
     PasswordResetProxyView,
 )
-from proxy.healthcheck.views import HealthCheckAPIProxyView, PingAPIProxyView
+from proxy.healthcheck.views import (
+    HealthCheckDatabaseAPIProxyView, PingAPIProxyView
+)
 from proxy.oauth2.views_user import UserRetrieveAPIProxyView
 from proxy.oauth2.views import (
     AuthorizationProxyView,
@@ -115,8 +117,8 @@ oauth2_provider_patterns = [
 
 api_urlpatterns = [
     url(
-        r'^$',
-        HealthCheckAPIProxyView.as_view(),
+        r'^healthcheck/database/$',
+        HealthCheckDatabaseAPIProxyView.as_view(),
         name="health_check_proxy"
     ),
     url(
