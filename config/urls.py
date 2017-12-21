@@ -122,7 +122,7 @@ api_urlpatterns = [
         name="health_check_proxy"
     ),
     url(
-        r'^ping/$',
+        r'^healthcheck/ping/$',
         PingAPIProxyView.as_view(),
         name="ping_proxy"
     ),
