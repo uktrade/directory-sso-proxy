@@ -2,7 +2,9 @@ from django.core.urlresolvers import reverse
 
 
 def test_health_check_proxy_signed(signed_client):
-    response = signed_client.get(reverse('health_check_proxy'))
+    response = signed_client.get(
+        reverse('health_check_proxy'), {'token': 'debug'}
+    )
     assert response.status_code == 200
 
 

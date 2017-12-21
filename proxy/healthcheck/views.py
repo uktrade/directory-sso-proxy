@@ -1,7 +1,7 @@
 from proxy.utils import CheckSignatureMixin, BaseProxyView
 
 
-class HealthCheckAPIProxyView(CheckSignatureMixin, BaseProxyView):
+class HealthCheckDatabaseAPIProxyView(BaseProxyView):
     pass
 
 
