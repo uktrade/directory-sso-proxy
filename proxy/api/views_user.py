@@ -11,7 +11,3 @@ class LastLoginAPIProxyView(CheckSignatureMixin, BaseProxyView):
 
 class PasswordCheckAPIView(CheckSignatureMixin, BaseProxyView):
     pass
-
-
-class UserByEmailAPIView(CheckSignatureMixin, BaseProxyView):
-    pass

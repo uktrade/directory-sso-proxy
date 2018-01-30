@@ -4,8 +4,7 @@ from config import settings
 from proxy.api.views_user import (
     SessionUserAPIProxyView,
     LastLoginAPIProxyView,
-    PasswordCheckAPIView,
-    UserByEmailAPIView
+    PasswordCheckAPIView
 )
 from proxy.user.views import (
     AccountInactiveProxyView,
@@ -31,7 +30,7 @@ from proxy.oauth2.views import (
     RevokeTokenProxyView
 )
 from proxy.utils import NotFoundProxyView, StaticProxyView, AdminProxyView
-
+from testapi.views import UserByEmailAPIView
 
 handler404 = NotFoundProxyView.as_view()
 
@@ -178,8 +177,7 @@ urlpatterns = [
 if settings.ENABLE_TEST_API:
     urlpatterns += [
         url(
-            r'^testapi/user-by-email/(?P<email>.*)/$',
-            UserByEmailAPIView.as_view(),
-            name='user_by_email'
+            r'^testapi/',
+            include('testapi.urls', namespace='testapi', app_name='testapi')
         )
     ]
