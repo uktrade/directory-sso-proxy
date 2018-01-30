@@ -1,9 +1,11 @@
 from django.conf.urls import url, include
 
+from config import settings
 from proxy.api.views_user import (
     SessionUserAPIProxyView,
     LastLoginAPIProxyView,
     PasswordCheckAPIView,
+    UserByEmailAPIView
 )
 from proxy.user.views import (
     AccountInactiveProxyView,
@@ -172,3 +174,12 @@ urlpatterns = [
         include(api_urlpatterns)
     ),
 ]
+
+if settings.ENABLE_TEST_API:
+    urlpatterns += [
+        url(
+            r'^testapi/user-by-email/(?P<email>.*)/$',
+            UserByEmailAPIView.as_view(),
+            name='user_by_email'
+        )
+    ]
