@@ -75,7 +75,7 @@ DOCKER_SET_DEBUG_ENV_VARS := \
 	export SSO_PROXY_PYTHONDEBUG=true; \
 	export SSO_PROXY_SECURE_SSL_REDIRECT=false; \
 	export SSO_PROXY_HEALTH_CHECK_TOKEN=debug; \
-	export SSO_ENABLE_TEST_API=true
+	export SSO_PROXY_TEST_API_ENABLE=true
 
 docker_test_env_files:
 	$(DOCKER_SET_DEBUG_ENV_VARS) && \
@@ -120,7 +120,7 @@ DEBUG_SET_ENV_VARS := \
 	export SECURE_SSL_REDIRECT=false; \
 	export HEALTH_CHECK_TOKEN=debug; \
 	export SSO_HEALTH_CHECK_TOKEN=debug; \
-	export ENABLE_TEST_API=true
+	export TEST_API_ENABLE=true
 
 
 debug_webserver:

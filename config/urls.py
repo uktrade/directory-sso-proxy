@@ -174,7 +174,7 @@ urlpatterns = [
     ),
 ]
 
-if settings.ENABLE_TEST_API:
+if settings.TEST_API_ENABLE:
     urlpatterns += [
         url(
             r'^testapi/user-by-email/(?P<email>.*)/$',
