@@ -104,3 +104,4 @@ SIGNATURE_SECRET = os.environ['SIGNATURE_SECRET']
 
 # testing api
 TEST_API_ENABLE = os.getenv("TEST_API_ENABLE", 'false') == 'true'
+TEST_API_AUTH_TOKEN = os.environ["TEST_API_AUTH_TOKEN"]

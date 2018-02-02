@@ -71,11 +71,13 @@ DOCKER_SET_DEBUG_ENV_VARS := \
 	export SSO_CACHE_BACKEND=locmem; \
 	export SSO_SECURE_SSL_REDIRECT=false; \
 	export SSO_HEALTH_CHECK_TOKEN=debug; \
+	export SSO_GOOGLE_TAG_MANAGER_ID=debug; \
 	export SSO_PROXY_PYTHONWARNINGS=all; \
 	export SSO_PROXY_PYTHONDEBUG=true; \
 	export SSO_PROXY_SECURE_SSL_REDIRECT=false; \
 	export SSO_PROXY_HEALTH_CHECK_TOKEN=debug; \
-	export SSO_PROXY_TEST_API_ENABLE=true
+	export SSO_PROXY_TEST_API_ENABLE=true; \
+	export SSO_PROXY_TEST_API_AUTH_TOKEN=debug
 
 docker_test_env_files:
 	$(DOCKER_SET_DEBUG_ENV_VARS) && \
@@ -120,7 +122,8 @@ DEBUG_SET_ENV_VARS := \
 	export SECURE_SSL_REDIRECT=false; \
 	export HEALTH_CHECK_TOKEN=debug; \
 	export SSO_HEALTH_CHECK_TOKEN=debug; \
-	export TEST_API_ENABLE=true
+	export TEST_API_ENABLE=true; \
+	export TEST_API_AUTH_TOKEN=debug
 
 
 debug_webserver:
