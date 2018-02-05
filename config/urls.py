@@ -30,7 +30,7 @@ from proxy.oauth2.views import (
     RevokeTokenProxyView
 )
 from proxy.utils import NotFoundProxyView, StaticProxyView, AdminProxyView
-from testapi.views import UserByEmailAPIView
+from proxy.testapi.views import UserByEmailAPIView
 
 handler404 = NotFoundProxyView.as_view()
 
