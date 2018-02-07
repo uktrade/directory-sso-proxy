@@ -8,7 +8,7 @@ test_requirements:
 	pip install -r requirements_test.txt
 
 FLAKE8 := flake8 . --exclude=migrations,.venv
-PYTEST := pytest . --cov=. $(pytest_args) --capture=no
+PYTEST := pytest . --cov=. --cov-config=.coveragerc --capture=sys $(pytest_args)
 CODECOV := \
 	if [ "$$CODECOV_REPO_TOKEN" != "" ]; then \
 	   codecov --token=$$CODECOV_REPO_TOKEN ;\
@@ -71,10 +71,12 @@ DOCKER_SET_DEBUG_ENV_VARS := \
 	export SSO_CACHE_BACKEND=locmem; \
 	export SSO_SECURE_SSL_REDIRECT=false; \
 	export SSO_HEALTH_CHECK_TOKEN=debug; \
+	export SSO_GOOGLE_TAG_MANAGER_ID=debug; \
 	export SSO_PROXY_PYTHONWARNINGS=all; \
 	export SSO_PROXY_PYTHONDEBUG=true; \
 	export SSO_PROXY_SECURE_SSL_REDIRECT=false; \
-	export SSO_PROXY_HEALTH_CHECK_TOKEN=debug
+	export SSO_PROXY_HEALTH_CHECK_TOKEN=debug; \
+	export SSO_PROXY_FEATURE_TEST_API_ENABLE=true
 
 docker_test_env_files:
 	$(DOCKER_SET_DEBUG_ENV_VARS) && \
@@ -118,7 +120,8 @@ DEBUG_SET_ENV_VARS := \
 	export PYTHONDEBUG=true; \
 	export SECURE_SSL_REDIRECT=false; \
 	export HEALTH_CHECK_TOKEN=debug; \
-	export SSO_HEALTH_CHECK_TOKEN=debug
+	export SSO_HEALTH_CHECK_TOKEN=debug; \
+	export FEATURE_TEST_API_ENABLE=true
 
 
 debug_webserver:

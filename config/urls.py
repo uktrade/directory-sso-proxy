@@ -3,7 +3,7 @@ from django.conf.urls import url, include
 from proxy.api.views_user import (
     SessionUserAPIProxyView,
     LastLoginAPIProxyView,
-    PasswordCheckAPIView,
+    PasswordCheckAPIView
 )
 from proxy.user.views import (
     AccountInactiveProxyView,
@@ -29,7 +29,7 @@ from proxy.oauth2.views import (
     RevokeTokenProxyView
 )
 from proxy.utils import NotFoundProxyView, StaticProxyView, AdminProxyView
-
+from proxy.testapi.views import UserByEmailAPIView
 
 handler404 = NotFoundProxyView.as_view()
 
@@ -170,5 +170,10 @@ urlpatterns = [
     url(
         r'^api/v1/',
         include(api_urlpatterns)
+    ),
+    url(
+        r'^testapi/user-by-email/(?P<email>.*)/$',
+        UserByEmailAPIView.as_view(),
+        name='user_by_email'
     ),
 ]
