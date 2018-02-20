@@ -52,14 +52,14 @@ USE_TZ = True
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ["SECRET_KEY"]
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # Address of SSO server
-SSO_UPSTREAM = os.environ["SSO_UPSTREAM"]
+SSO_UPSTREAM = os.environ['SSO_UPSTREAM']
 
 # Sentry
 RAVEN_CONFIG = {
-    "dsn": os.getenv("SENTRY_DSN"),
+    'dsn': os.getenv('SENTRY_DSN'),
 }
 
 
@@ -104,4 +104,4 @@ SIGNATURE_SECRET = os.environ['SIGNATURE_SECRET']
 
 # testing api
 FEATURE_TEST_API_ENABLED = os.getenv(
-    "FEATURE_TEST_API_ENABLED", 'false') == 'true'
+    'FEATURE_TEST_API_ENABLED', 'false') == 'true'
