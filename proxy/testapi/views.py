@@ -7,6 +7,6 @@ from django.http import HttpResponseNotFound
 class UserByEmailAPIView(CheckSignatureMixin, BaseProxyView):
 
     def dispatch(self, *args, **kwargs):
-        if not settings.FEATURE_TEST_API_ENABLE:
+        if not settings.FEATURE_TEST_API_ENABLED:
             return HttpResponseNotFound()
         return super().dispatch(*args, **kwargs)
