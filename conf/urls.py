@@ -1,5 +1,6 @@
 from django.conf.urls import url, include
 
+import proxy.core.views
 from proxy.api.views_user import (
     SessionUserAPIProxyView,
     LastLoginAPIProxyView,
@@ -144,6 +145,16 @@ api_urlpatterns = [
 ]
 
 urlpatterns = [
+    url(
+        r"^robots\.txt$",
+        proxy.core.views.RobotsView.as_view(),
+        name="robots_proxy"
+    ),
+    url(
+        r"^sitemap\.xml$",
+        proxy.core.views.SitemapView.as_view(),
+        name="sitemap_proxy"
+    ),
     url(
         r"^$",
         SSOLandingPageProxyView.as_view(),
