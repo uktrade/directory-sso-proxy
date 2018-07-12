@@ -7,7 +7,7 @@ from django.shortcuts import redirect
 from revproxy.response import get_django_response
 from revproxy.views import ProxyView
 
-from config import signature
+from conf import signature
 
 
 class BaseProxyView(ProxyView):
@@ -20,7 +20,6 @@ class BaseProxyView(ProxyView):
         super(BaseProxyView, self).__init__(*args, **kwargs)
 
     def dispatch(self, request, *args, **kwargs):
-
         self.request_headers = self.get_request_headers()
 
         redirect_to = self._format_path_to_redirect(request)
