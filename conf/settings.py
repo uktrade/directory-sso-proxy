@@ -30,9 +30,9 @@ CORS_ORIGIN_ALLOW_ALL = True if (
 ) else False
 
 
-ROOT_URLCONF = 'config.urls'
+ROOT_URLCONF = 'conf.urls'
 
-WSGI_APPLICATION = 'config.wsgi.application'
+WSGI_APPLICATION = 'conf.wsgi.application'
 
 # Database
 DATABASES = {
