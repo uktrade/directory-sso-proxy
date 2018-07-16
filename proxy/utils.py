@@ -55,6 +55,14 @@ class BaseProxyView(ProxyView):
             content_type=self.request_headers.get('Content-Type'),
         )
 
+        # Behave as a standard proxy, appending REMOTE_ADDR to the
+        # X-Forwarded-For header if it exists
+        meta = request.META
+        meta_x_fwd_for = 'HTTP_X_FORWARDED_FOR'
+        self.request_headers['X-Forwarded-For'] = \
+            (meta[meta_x_fwd_for] + ', ' if meta_x_fwd_for in meta else '') + \
+            request.META['REMOTE_ADDR']
+
         self.request_headers["X-Forwarded-Host"] = request.get_host()
         self.request_headers = {**self.request_headers, **signature_headers}
 
