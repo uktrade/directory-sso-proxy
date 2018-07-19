@@ -1,11 +1,15 @@
 import os
+import environ
+
+
+env = environ.Env()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = os.path.dirname(PROJECT_ROOT)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True if (os.getenv('DEBUG') == 'true') else False
+DEBUG = env.bool('DEBUG', False)
 
 # As app is running behind a host-based router supplied by Heroku or other
 # PaaS, we can open ALLOWED_HOSTS
@@ -25,10 +29,7 @@ MIDDLEWARE_CLASSES = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True if (
-    os.getenv('CORS_ORIGIN_ALLOW_ALL') == 'true'
-) else False
-
+CORS_ORIGIN_ALLOW_ALL = env.bool('CORS_ORIGIN_ALLOW_ALL', False)
 
 ROOT_URLCONF = 'conf.urls'
 
@@ -52,14 +53,14 @@ USE_TZ = True
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = env.str('SECRET_KEY')
 
 # Address of SSO server
-SSO_UPSTREAM = os.environ['SSO_UPSTREAM']
+SSO_UPSTREAM = env.str('SSO_UPSTREAM')
 
 # Sentry
 RAVEN_CONFIG = {
-    'dsn': os.getenv('SENTRY_DSN'),
+    'dsn': env.str('SENTRY_DSN', ''),
 }
 
 
@@ -93,15 +94,10 @@ if DEBUG:
         }
     }
 
-SECURE_SSL_REDIRECT = os.getenv('SECURE_SSL_REDIRECT', 'true') == 'true'
+SECURE_SSL_REDIRECT = env.bool('SECURE_SSL_REDIRECT', True)
 USE_X_FORWARDED_HOST = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_HSTS_SECONDS = int(os.getenv('SECURE_HSTS_SECONDS', '16070400'))
+SECURE_HSTS_SECONDS = env.int('SECURE_HSTS_SECONDS', 16070400)
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
-SSO_SIGNATURE_SECRET = os.environ['SSO_SIGNATURE_SECRET']
-SIGNATURE_SECRET = os.environ['SIGNATURE_SECRET']
-
-# testing api
-FEATURE_TEST_API_ENABLED = os.getenv(
-    'FEATURE_TEST_API_ENABLED', 'false') == 'true'
+SSO_SIGNATURE_SECRET = env.str('SSO_SIGNATURE_SECRET')
