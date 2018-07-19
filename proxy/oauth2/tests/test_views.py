@@ -1,12 +1,6 @@
 from django.core.urlresolvers import reverse
 
 
-def test_user_profile_proxy(client):
-    url = reverse('oauth2_provider_proxy:user_profile_proxy')
-    response = client.get(url)
-    assert response.status_code == 401
-
-
 def test_authorize_proxy(client):
     url = reverse('oauth2_provider_proxy:authorize_proxy')
     response = client.get(url)

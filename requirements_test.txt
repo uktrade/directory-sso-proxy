@@ -4,22 +4,24 @@
 #
 #    pip-compile --output-file requirements_test.txt requirements_test.in
 #
+-e git+https://github.com/uktrade/directory-constants.git@v4.0.0#egg=directory_constants
+-e git+https://github.com/uktrade/directory-signature-auth.git@v2.0.0#egg=sigauth
 certifi==2017.7.27.1      # via requests
 chardet==3.0.4            # via requests
 codecov==2.0.9
 contextlib2==0.5.5        # via raven
 coverage==4.4.1           # via codecov, pytest-cov
-directory_constants==7.0.0
 django-cors-headers==1.3.1
-django-oauth-toolkit==1.1.0
-django-revproxy==0.9.15
+django-environ==0.4.5
+django-oauth-toolkit==1.0.0
 django==1.11.13
-djangorestframework==3.4.7  # via sigauth
+djangorestframework==3.4.7
+django-revproxy==0.9.13
 flake8==3.0.4
 gunicorn==19.5.0
 idna==2.6                 # via requests
 mccabe==0.5.3             # via flake8
-mohawk==0.3.4             # via sigauth
+mohawk==0.3.4
 oauthlib==2.0.4           # via django-oauth-toolkit
 psycopg2==2.6.1
 py==1.4.34                # via pytest
@@ -29,10 +31,9 @@ pytest-cov==2.3.1
 pytest-django==3.1.2
 pytest-sugar==0.8.0
 pytest==3.0.2
-pytz==2017.2              # via directory-constants, django
+pytz==2017.2              # via django
 raven==5.19.0
 requests==2.18.4          # via codecov, django-oauth-toolkit
-sigauth==2.1.3
 six==1.11.0               # via mohawk
 termcolor==1.1.0          # via pytest-sugar
-urllib3==1.22             # via django-revproxy, requests
+urllib3==1.16             # via requests

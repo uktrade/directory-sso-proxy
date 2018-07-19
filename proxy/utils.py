@@ -1,7 +1,6 @@
 import urllib3
 
 from django.conf import settings
-from django.http import HttpResponseForbidden
 from django.shortcuts import redirect
 
 from revproxy.response import get_django_response
@@ -96,11 +95,3 @@ class StaticProxyView(BaseProxyView):
 
 class AdminProxyView(BaseProxyView):
     pass
-
-
-class CheckSignatureMixin:
-
-    def dispatch(self, request, *args, **kwargs):
-        if signature.sso_client_checker.test_signature(request) is False:
-            return HttpResponseForbidden()
-        return super().dispatch(request, *args, **kwargs)

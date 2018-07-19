@@ -78,7 +78,6 @@ DOCKER_SET_DEBUG_ENV_VARS := \
 	export SSO_ACTIVITY_STREAM_SECRET_ACCESS_KEY=some-secret; \
 	export SSO_PROXY_PORT=8004; \
 	export SSO_PROXY_DEBUG=true; \
-	export SSO_PROXY_SIGNATURE_SECRET=proxy_signature_debug; \
 	export SSO_PROXY_SSO_SIGNATURE_SECRET=signature_secret_debug; \
 	export SSO_PROXY_SECRET_KEY=debug; \
 	export SSO_PROXY_SSO_UPSTREAM=http://sso.trade.great.docker:8003; \
@@ -88,8 +87,7 @@ DOCKER_SET_DEBUG_ENV_VARS := \
 	export SSO_PROXY_PYTHONWARNINGS=all; \
 	export SSO_PROXY_PYTHONDEBUG=true; \
 	export SSO_PROXY_SECURE_SSL_REDIRECT=false; \
-	export SSO_PROXY_HEALTH_CHECK_TOKEN=debug; \
-	export SSO_PROXY_FEATURE_TEST_API_ENABLED=true
+	export SSO_PROXY_HEALTH_CHECK_TOKEN=debug
 
 docker_test_env_files:
 	$(DOCKER_SET_DEBUG_ENV_VARS) && \
@@ -123,7 +121,6 @@ docker_test: docker_remove_all
 
 DEBUG_SET_ENV_VARS := \
 	export SECRET_KEY=debug; \
-	export SIGNATURE_SECRET=proxy_signature_debug; \
 	export SSO_SIGNATURE_SECRET=api_signature_debug; \
 	export PORT=8004; \
 	export DEBUG=true; \
@@ -133,9 +130,7 @@ DEBUG_SET_ENV_VARS := \
 	export PYTHONDEBUG=true; \
 	export SECURE_SSL_REDIRECT=false; \
 	export HEALTH_CHECK_TOKEN=debug; \
-	export SSO_HEALTH_CHECK_TOKEN=debug; \
-	export FEATURE_TEST_API_ENABLED=true
-
+	export SSO_HEALTH_CHECK_TOKEN=debug
 
 debug_webserver:
 	$(DEBUG_SET_ENV_VARS); $(DJANGO_WEBSERVER);
