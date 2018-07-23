@@ -39,6 +39,40 @@ class BaseProxyView(ProxyView):
     def get_upstream(self):
         return super(BaseProxyView, self).get_upstream(path=None)
 
+    def get_request_headers(self):
+        headers = super().get_request_headers()
+
+        # revproxy default behaviour copies X-Forwarded-For, which we
+        # don't want in order to only populate if we have both
+        # X-Forwarded-For and REMOTE_ADDR to keep the number of cases we
+        # _do_ populate X-Forwarded-For down
+        headers.pop('X-Forwarded-For', None)
+
+        meta = self.request.META
+        meta_x_fwd_for = 'HTTP_X_FORWARDED_FOR'
+        has_x_fwd_for = meta_x_fwd_for in meta
+        has_remote_addr = 'REMOTE_ADDR' in meta
+        if has_x_fwd_for and has_remote_addr:
+            headers['X-Forwarded-For'] = \
+                meta[meta_x_fwd_for] + ', ' + self.request.META['REMOTE_ADDR']
+
+        if not has_x_fwd_for:
+            self.log.error(
+                'HTTP_X_FORWARDED_FOR was missing from the request %s. '
+                'This is not expected: later IP whitelisting will fail.',
+                self.request,
+            )
+        if not has_remote_addr:
+            self.log.error(
+                'REMOTE_ADDR was missing from the request %s. '
+                'This is not expected: later IP whitelisting will fail.',
+                self.request,
+            )
+
+        headers["X-Forwarded-Host"] = self.request.get_host()
+
+        return headers
+
     def get_upstream_response(self, request, *args, **kwargs):
         request_payload = request.body
 
@@ -54,35 +88,6 @@ class BaseProxyView(ProxyView):
             method=request.method,
             content_type=self.request_headers.get('Content-Type'),
         )
-
-        # revproxy default behaviour copies X-Forwarded-For, which we
-        # don't want in order to only populate if we have both
-        # X-Forwarded-For and REMOTE_ADDR to keep the number of cases we
-        # _do_ populate X-Forwarded-For down
-        self.request_headers.pop('X-Forwarded-For', None)
-
-        meta = request.META
-        meta_x_fwd_for = 'HTTP_X_FORWARDED_FOR'
-        has_x_fwd_for = meta_x_fwd_for in meta
-        has_remote_addr = 'REMOTE_ADDR' in meta
-        if has_x_fwd_for and has_remote_addr:
-            self.request_headers['X-Forwarded-For'] = \
-                meta[meta_x_fwd_for] + ', ' + request.META['REMOTE_ADDR']
-
-        if not has_x_fwd_for:
-            self.log.error(
-                'HTTP_X_FORWARDED_FOR was missing from the request %s. '
-                'This is not expected: later IP whitelisting will fail.',
-                request,
-            )
-        if not has_remote_addr:
-            self.log.error(
-                'REMOTE_ADDR was missing from the request %s. '
-                'This is not expected: later IP whitelisting will fail.',
-                request,
-            )
-
-        self.request_headers["X-Forwarded-Host"] = request.get_host()
         self.request_headers = {**self.request_headers, **signature_headers}
 
         try:
