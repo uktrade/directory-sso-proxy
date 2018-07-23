@@ -1,6 +1,7 @@
 from unittest.mock import patch
 
 from django.core.urlresolvers import reverse
+from django.test.client import Client
 import pytest
 import revproxy
 
@@ -10,35 +11,56 @@ def test_404(client):
     assert response.status_code == 404
 
 
+@pytest.fixture
+def no_remote_addr_client():
+    # The django test client _always_ populates REMOTE_ADDR
+    # However, in production this depends on the web-server
+    # environment, and we want to test the case when it's not
+    # set.
+    class NoRemoteAddrClient(Client):
+        def _base_environ(self, **request):
+            return {
+                key: value
+                for key, value in super()._base_environ(**request).items()
+                if key != 'REMOTE_ADDR'
+            }
+
+    return NoRemoteAddrClient()
+
+
 @pytest.mark.parametrize(
-    'get_kwargs,expected_x_forwarded_for',
+    'get_kwargs',
     (
         (
-            # If no X-Forwarded-For header, it is set to REMOTE_ADDR
+            # If neither X-Forwarded-For nor REMOTE_ADDR, then don't set
+            # X-Forwarded-For outgoing
             dict(
-                REMOTE_ADDR='4.3.2.1'
-            ),
-            '4.3.2.1',
+            )
         ),
         (
-            # If X-Forwarded-For header, REMOTE_ADDR is appended to it
+            # If only REMOTE_ADDR, then don't set X-Forwarded-For outgoing
             dict(
-                REMOTE_ADDR='4.3.2.1',
+                REMOTE_ADDR='4.3.2.1'
+            )
+        ),
+        (
+            # If only X-Forwarded-For incomding, then don't set
+            # X-Forwarded-For outgoing
+            dict(
                 HTTP_X_FORWARDED_FOR='1.2.3.4',
-            ),
-            '1.2.3.4, 4.3.2.1',
+            )
         ),
     ),
 )
-def test_x_forwarded_for(client, get_kwargs, expected_x_forwarded_for):
+def test_x_forwarded_for_not_set(no_remote_addr_client, get_kwargs):
     with patch('revproxy.views.HTTP_POOLS', wraps=revproxy.views.HTTP_POOLS) \
             as mock_pool_manager:
-        client.get('/anything/', **get_kwargs)
+        no_remote_addr_client.get('/anything/', **get_kwargs)
     headers = mock_pool_manager.urlopen.call_args[1]['headers']
-    assert headers['X-Forwarded-For'] == expected_x_forwarded_for
+    assert 'X-Forwarded-For' not in headers
 
 
-def test_if_x_forwarded_for_on_original_request_then_its_appended_to(client):
+def test_if_x_forwarded_for_and_remote_addr_then_are_concat_with_comma(client):
     with patch('revproxy.views.HTTP_POOLS', wraps=revproxy.views.HTTP_POOLS) \
             as mock_pool_manager:
         client.get('/anything/', REMOTE_ADDR='4.3.2.1',
