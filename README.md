@@ -3,8 +3,6 @@
 [![code-climate-image]][code-climate]
 [![circle-ci-image]][circle-ci]
 [![codecov-image]][codecov]
-[![gemnasium-image]][gemnasium]
-
 ---
 
 ### See also: 
@@ -66,6 +64,3 @@ Provides defaults for all environment variables.
 
 [codecov-image]: https://codecov.io/gh/uktrade/directory-sso-proxy/branch/master/graph/badge.svg
 [codecov]: https://codecov.io/gh/uktrade/directory-sso-proxy
-
-[gemnasium-image]: https://gemnasium.com/badges/github.com/uktrade/directory-sso-proxy.svg
-[gemnasium]: https://gemnasium.com/github.com/uktrade/directory-sso-proxy
