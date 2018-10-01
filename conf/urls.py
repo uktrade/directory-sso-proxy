@@ -98,6 +98,12 @@ healthcheck_urlpatterns = [
         proxy.healthcheck.views.PingAPIProxyView.as_view(),
         name='ping_proxy'
     ),
+
+    url(
+        r'^healthcheck/sentry/$',
+        proxy.healthcheck.views.SentryProxyView.as_view(),
+        name='sentry_proxy'
+    ),
 ]
 
 urlpatterns = [

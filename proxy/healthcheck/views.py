@@ -7,3 +7,7 @@ class HealthCheckDatabaseAPIProxyView(BaseProxyView):
 
 class PingAPIProxyView(BaseProxyView):
     pass
+
+
+class SentryProxyView(BaseProxyView):
+    pass
