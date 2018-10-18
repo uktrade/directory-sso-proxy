@@ -27,11 +27,18 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.common.CommonMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'core.middleware.PrefixUrlMixin',
 ]
 
 CORS_ORIGIN_ALLOW_ALL = env.bool('CORS_ORIGIN_ALLOW_ALL', False)
 
-ROOT_URLCONF = 'conf.urls'
+FEATURE_URL_PREFIX_ENABLED = env.bool('FEATURE_URL_PREFIX_ENABLED', False)
+
+if FEATURE_URL_PREFIX_ENABLED:
+    ROOT_URLCONF = 'conf.urls'
+else:
+    ROOT_URLCONF = 'conf.urls_unprefixed'
+
 
 WSGI_APPLICATION = 'conf.wsgi.application'
 
