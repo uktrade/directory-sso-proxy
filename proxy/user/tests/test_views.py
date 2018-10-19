@@ -52,19 +52,30 @@ def no_remote_addr_client():
         ),
     ),
 )
-def test_x_forwarded_for_not_set(no_remote_addr_client, get_kwargs):
-    with patch('revproxy.views.HTTP_POOLS', wraps=revproxy.views.HTTP_POOLS) \
-            as mock_pool_manager:
-        no_remote_addr_client.get('/anything/', **get_kwargs)
+def test_x_forwarded_for_not_set(no_remote_addr_client, get_kwargs, settings):
+    settings.FEATURE_URL_PREFIX_ENABLED = True
+    settings.ROOT_URLCONF = 'conf.urls'
+
+    stub = patch('revproxy.views.HTTP_POOLS', wraps=revproxy.views.HTTP_POOLS)
+    with stub as mock_pool_manager:
+        no_remote_addr_client.get('/sso/accounts/login/', **get_kwargs)
     headers = mock_pool_manager.urlopen.call_args[1]['headers']
     assert 'X-Forwarded-For' not in headers
 
 
-def test_if_x_forwarded_for_and_remote_addr_then_are_concat_with_comma(client):
-    with patch('revproxy.views.HTTP_POOLS', wraps=revproxy.views.HTTP_POOLS) \
-            as mock_pool_manager:
-        client.get('/anything/', REMOTE_ADDR='4.3.2.1',
-                   HTTP_X_FORWARDED_FOR='1.2.3.4')
+def test_if_x_forwarded_for_and_remote_addr_then_are_concat_with_comma(
+    client, settings
+):
+    settings.FEATURE_URL_PREFIX_ENABLED = True
+    settings.ROOT_URLCONF = 'conf.urls'
+
+    stub = patch('revproxy.views.HTTP_POOLS', wraps=revproxy.views.HTTP_POOLS)
+    with stub as mock_pool_manager:
+        client.get(
+            '/sso/accounts/login/',
+            REMOTE_ADDR='4.3.2.1',
+            HTTP_X_FORWARDED_FOR='1.2.3.4',
+        )
     headers = mock_pool_manager.urlopen.call_args[1]['headers']
     assert headers['X-Forwarded-For'] == '1.2.3.4, 4.3.2.1'
 

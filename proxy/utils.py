@@ -78,7 +78,11 @@ class BaseProxyView(ProxyView):
 
         self.log.debug("Request headers: %s", self.request_headers)
 
-        request_url = self.get_upstream() + request.get_full_path()
+        full_path = request.get_full_path()
+        if settings.FEATURE_URL_PREFIX_ENABLED:
+            full_path = full_path.replace('/sso', '')
+
+        request_url = self.get_upstream() + full_path
 
         self.log.debug("Request URL: %s", request_url)
 
