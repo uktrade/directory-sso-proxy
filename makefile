@@ -76,6 +76,7 @@ DOCKER_SET_DEBUG_ENV_VARS := \
 	export SSO_ACTIVITY_STREAM_IP_WHITELIST=1.2.3.4 \
 	export SSO_ACTIVITY_STREAM_ACCESS_KEY_ID=some-id \
 	export SSO_ACTIVITY_STREAM_SECRET_ACCESS_KEY=some-secret; \
+	export SSO_PRIVACY_COOKIE_DOMAIN=.trade.great; \
 	export SSO_PROXY_PORT=8004; \
 	export SSO_PROXY_DEBUG=true; \
 	export SSO_PROXY_SSO_SIGNATURE_SECRET=signature_secret_debug; \

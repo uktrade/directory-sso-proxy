@@ -32,16 +32,20 @@ def test_prefix_prefix(mock_urlopen, rf, settings, enabled, url, expected):
     view = TestProxyView.as_view()
     view(request)
 
+    headers = {
+        'X-Forwarded-Host': 'testserver',
+        'X-Signature': ANY,
+        'Cookie': ''
+    }
+    if enabled:
+        headers['X-Script-Name'] = TestProxyView.url_prefix
+
     assert mock_urlopen.call_args == call(
         'GET',
         expected,
         body=b'',
         decode_content=False,
-        headers={
-            'X-Forwarded-Host': 'testserver',
-            'X-Signature': ANY,
-            'Cookie': ''
-        },
+        headers=headers,
         preload_content=False,
         redirect=False,
         retries=None

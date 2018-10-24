@@ -11,6 +11,7 @@ from conf import signature
 
 class BaseProxyView(ProxyView):
     upstream = settings.SSO_UPSTREAM
+    url_prefix = '/sso'
 
     def __init__(self, *args, **kwargs):
         if self.upstream.endswith('/'):
@@ -70,7 +71,8 @@ class BaseProxyView(ProxyView):
             )
 
         headers["X-Forwarded-Host"] = self.request.get_host()
-
+        if settings.FEATURE_URL_PREFIX_ENABLED:
+            headers['X-Script-Name'] = self.url_prefix
         return headers
 
     def get_upstream_response(self, request, *args, **kwargs):
@@ -80,14 +82,13 @@ class BaseProxyView(ProxyView):
 
         full_path = request.get_full_path()
         if settings.FEATURE_URL_PREFIX_ENABLED:
-            full_path = full_path.replace('/sso', '')
-
+            full_path = full_path.replace(self.url_prefix, '')
         request_url = self.get_upstream() + full_path
 
         self.log.debug("Request URL: %s", request_url)
 
         signature_headers = signature.sso_signer.get_signature_headers(
-            url=request_url,
+            url=self.get_upstream() + request.get_full_path(),
             body=request_payload,
             method=request.method,
             content_type=self.request_headers.get('Content-Type'),
