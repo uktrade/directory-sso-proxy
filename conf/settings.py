@@ -33,11 +33,11 @@ MIDDLEWARE_CLASSES = [
 CORS_ORIGIN_ALLOW_ALL = env.bool('CORS_ORIGIN_ALLOW_ALL', False)
 
 FEATURE_URL_PREFIX_ENABLED = env.bool('FEATURE_URL_PREFIX_ENABLED', False)
-
+URL_PREFIX_DOMAIN = env.str('URL_PREFIX_DOMAIN', '')
 if FEATURE_URL_PREFIX_ENABLED:
-    ROOT_URLCONF = 'conf.urls'
+    ROOT_URLCONF = 'conf.urls_prefixed'
 else:
-    ROOT_URLCONF = 'conf.urls_unprefixed'
+    ROOT_URLCONF = 'conf.urls'
 
 
 WSGI_APPLICATION = 'conf.wsgi.application'
