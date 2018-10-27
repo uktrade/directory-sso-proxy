@@ -88,8 +88,7 @@ DOCKER_SET_DEBUG_ENV_VARS := \
 	export SSO_PROXY_PYTHONWARNINGS=all; \
 	export SSO_PROXY_PYTHONDEBUG=true; \
 	export SSO_PROXY_SECURE_SSL_REDIRECT=false; \
-	export SSO_PROXY_HEALTH_CHECK_TOKEN=debug; \
-	export SSO_PROXY_FEATURE_URL_PREFIX_ENABLED=true
+	export SSO_PROXY_HEALTH_CHECK_TOKEN=debug
 
 
 docker_test_env_files:
@@ -133,8 +132,8 @@ DEBUG_SET_ENV_VARS := \
 	export PYTHONDEBUG=true; \
 	export SECURE_SSL_REDIRECT=false; \
 	export HEALTH_CHECK_TOKEN=debug; \
-	export SSO_HEALTH_CHECK_TOKEN=debug; \
-	export FEATURE_URL_PREFIX_ENABLED=true
+	export SSO_HEALTH_CHECK_TOKEN=debug
+
 
 debug_webserver:
 	$(DEBUG_SET_ENV_VARS); $(DJANGO_WEBSERVER);
