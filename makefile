@@ -132,7 +132,8 @@ DEBUG_SET_ENV_VARS := \
 	export PYTHONDEBUG=true; \
 	export SECURE_SSL_REDIRECT=false; \
 	export HEALTH_CHECK_TOKEN=debug; \
-	export SSO_HEALTH_CHECK_TOKEN=debug
+	export SSO_HEALTH_CHECK_TOKEN=debug; \
+	export FEATURE_URL_PREFIX_ENABLED=true
 
 
 debug_webserver:
