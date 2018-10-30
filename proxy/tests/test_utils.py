@@ -12,6 +12,12 @@ from proxy import utils
     (False, '/sso/accounts/login/', 'http://www.e.co/sso/accounts/login/'),
     (True, '/accounts/login/', 'http://www.e.co/accounts/login/'),
     (False, '/accounts/login/', 'http://www.e.co/accounts/login/'),
+    (
+        True,
+        '/sso/accounts/login/?next=/sso/accounts/logout/',
+        'http://www.e.co/accounts/login/?next=/sso/accounts/logout/'
+    ),
+
 ))
 @patch('urllib3.poolmanager.PoolManager.urlopen')
 def test_prefix_prefix(mock_urlopen, rf, settings, enabled, url, expected):

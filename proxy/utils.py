@@ -82,7 +82,7 @@ class BaseProxyView(ProxyView):
 
         full_path = request.get_full_path()
         if settings.FEATURE_URL_PREFIX_ENABLED:
-            full_path = full_path.replace(self.url_prefix, '')
+            full_path = full_path.replace(self.url_prefix, '', 1)
         request_url = self.get_upstream() + full_path
 
         self.log.debug("Request URL: %s", request_url)

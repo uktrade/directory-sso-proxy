@@ -1,5 +1,7 @@
 from unittest.mock import patch
 
+from django.urls import set_urlconf
+
 from django.core.urlresolvers import reverse
 from django.test.client import Client
 import pytest
@@ -54,7 +56,7 @@ def no_remote_addr_client():
 )
 def test_x_forwarded_for_not_set(no_remote_addr_client, get_kwargs, settings):
     settings.FEATURE_URL_PREFIX_ENABLED = True
-    settings.ROOT_URLCONF = 'conf.urls'
+    set_urlconf('conf.urls')
 
     stub = patch('revproxy.views.HTTP_POOLS', wraps=revproxy.views.HTTP_POOLS)
     with stub as mock_pool_manager:
@@ -67,7 +69,7 @@ def test_if_x_forwarded_for_and_remote_addr_then_are_concat_with_comma(
     client, settings
 ):
     settings.FEATURE_URL_PREFIX_ENABLED = True
-    settings.ROOT_URLCONF = 'conf.urls'
+    set_urlconf('conf.urls')
 
     stub = patch('revproxy.views.HTTP_POOLS', wraps=revproxy.views.HTTP_POOLS)
     with stub as mock_pool_manager:
