@@ -11,3 +11,7 @@ class TokenProxyView(BaseProxyView):
 
 class RevokeTokenProxyView(BaseProxyView):
     pass
+
+
+class UserProfileProxyView(BaseProxyView):
+    pass

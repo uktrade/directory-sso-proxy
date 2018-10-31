@@ -85,6 +85,12 @@ oauth2_provider_patterns = [
         proxy.oauth2.views.RevokeTokenProxyView.as_view(),
         name='revoke_token_proxy'
     ),
+    url(
+        r'^user-profile/v1/$',
+        proxy.oauth2.views.UserProfileProxyView.as_view(),
+        name='user-profile'
+    ),
+
 ]
 
 healthcheck_urlpatterns = [
