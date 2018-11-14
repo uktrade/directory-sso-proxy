@@ -11,10 +11,9 @@ cffi==1.11.5              # via cryptography
 chardet==3.0.4            # via requests
 contextlib2==0.5.5        # via raven
 cryptography==2.4.1       # via pyopenssl, requests
-directory-components==2.28.0
+directory-components==2.31.0
 django-cors-headers==1.3.1
 django-environ==0.4.5
-django-oauth-toolkit==1.0.0
 django-revproxy==0.9.15
 django==1.11.15
 djangorestframework==3.4.7  # via sigauth
@@ -22,8 +21,6 @@ export-elements==0.22.0   # via directory-components
 gunicorn==19.5.0
 idna==2.6                 # via cryptography, requests
 mohawk==0.3.4             # via sigauth
-oauthlib==2.0.4           # via django-oauth-toolkit
-psycopg2==2.6.1
 pycparser==2.19           # via cffi
 pyopenssl==18.0.0         # via requests
 pytz==2017.2              # via django
