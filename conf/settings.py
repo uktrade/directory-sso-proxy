@@ -3,6 +3,7 @@ import environ
 
 
 env = environ.Env()
+env.read_env()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -42,19 +43,10 @@ else:
 
 WSGI_APPLICATION = 'conf.wsgi.application'
 
-# Database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 LANGUAGE_CODE = 'en-gb'
 TIME_ZONE = 'UTC'
-USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
@@ -150,3 +142,12 @@ SECURE_HSTS_SECONDS = env.int('SECURE_HSTS_SECONDS', 16070400)
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
 SSO_SIGNATURE_SECRET = env.str('SSO_SIGNATURE_SECRET')
+
+# test facilitation
+TEST_IP_RESTRICTOR_SKIP_SENDER_ID = env.str(
+    'TEST_IP_RESTRICTOR_SKIP_SENDER_ID', ''
+)
+TEST_IP_RESTRICTOR_SKIP_SENDER_SECRET = env.str(
+    'TEST_IP_RESTRICTOR_SKIP_SENDER_SECRET', ''
+)
+TEST_SSO_HEALTHCHECK_TOKEN = env.str('TEST_SSO_HEALTHCHECK_TOKEN', '')
