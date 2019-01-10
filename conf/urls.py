@@ -95,20 +95,14 @@ oauth2_provider_patterns = [
 
 healthcheck_urlpatterns = [
     url(
-        r'^healthcheck/database/$',
-        proxy.healthcheck.views.HealthCheckDatabaseAPIProxyView.as_view(),
-        name='database_health_check_proxy'
+        r'^healthcheck/$',
+        proxy.healthcheck.views.HealthCheckAPIProxyView.as_view(),
+        name='health_check_proxy'
     ),
     url(
         r'^healthcheck/ping/$',
         proxy.healthcheck.views.PingAPIProxyView.as_view(),
         name='ping_proxy'
-    ),
-
-    url(
-        r'^healthcheck/sentry/$',
-        proxy.healthcheck.views.SentryProxyView.as_view(),
-        name='sentry_proxy'
     ),
 ]
 
