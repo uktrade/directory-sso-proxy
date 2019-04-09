@@ -18,7 +18,7 @@ django-cors-headers==1.3.1
 django-environ==0.4.5
 django-ipware==2.1.0      # via django-admin-ip-restrictor
 django-revproxy==0.9.15
-django==1.11.15
+django==1.11.20
 djangorestframework==3.4.7  # via sigauth
 export-elements==0.22.0   # via directory-components
 gunicorn==19.9.0
