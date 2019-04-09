@@ -145,3 +145,17 @@ urlpatterns = [
         include(healthcheck_urlpatterns)
     ),
 ]
+
+urlpatterns = [
+    url(
+        r'^sso/',
+        include(urlpatterns)
+    )
+]
+
+urlpatterns += [
+    url(
+        r'^static/',
+        proxy.utils.StaticProxyView.as_view(),
+    ),
+]
