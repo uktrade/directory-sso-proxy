@@ -1,6 +1,7 @@
 # Changelog
 
-## Pre-release
+## [2019.05.01](https://github.com/uktrade/directory-cms/releases/tag/2019.05.01)
+[Full Changelog](https://github.com/uktrade/directory-cms/compare/2019.01.10_1...2019.05.01)
 
 ### Bug fixes
 
