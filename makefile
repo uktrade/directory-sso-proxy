@@ -31,11 +31,8 @@ DEBUG_SET_ENV_VARS := \
 	export PYTHONDEBUG=true; \
 	export SECURE_SSL_REDIRECT=false; \
 	export HEALTH_CHECK_TOKEN=debug; \
-	export SSO_HEALTH_CHECK_TOKEN=debug; \
-	export FEATURE_URL_PREFIX_ENABLED=false
+	export SSO_HEALTH_CHECK_TOKEN=debug
 
-TEST_SET_ENV_VARS :=\
-	export FEATURE_URL_PREFIX_ENABLED=true
 
 debug_webserver:
 	$(DEBUG_SET_ENV_VARS); $(DJANGO_WEBSERVER);
@@ -44,10 +41,10 @@ debug_shell:
 	$(DEBUG_SET_ENV_VARS) && ./manage.py shell
 
 debug_test:
-	$(DEBUG_SET_ENV_VARS)  && $(TEST_SET_ENV_VARS) && $(FLAKE8) && $(PYTEST)
+	$(DEBUG_SET_ENV_VARS) && $(FLAKE8) && $(PYTEST)
 
 debug_pytest:
-	$(DEBUG_SET_ENV_VARS) && $(TEST_SET_ENV_VARS) && $(PYTEST)
+	$(DEBUG_SET_ENV_VARS) && $(PYTEST)
 
 debug: test_requirements debug_test
 
