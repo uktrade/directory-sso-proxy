@@ -3,32 +3,39 @@
 [![code-climate-image]][code-climate]
 [![circle-ci-image]][circle-ci]
 [![codecov-image]][codecov]
-[![snyk-image]][snyk]
-
+[![gitflow-image]][gitflow]
+[![calver-image]][calver]
 ---
 
-### See also: 
-| [directory-api](https://github.com/uktrade/directory-api) | [directory-ui-buyer](https://github.com/uktrade/directory-ui-buyer) | [directory-ui-supplier](https://github.com/uktrade/directory-ui-supplier) | [directory-ui-export-readiness](https://github.com/uktrade/directory-ui-export-readiness) |
-| --- | --- | --- | --- |
-| **[directory-sso](https://github.com/uktrade/directory-sso)** | **[directory-sso-proxy](https://github.com/uktrade/directory-sso-proxy)** | **[directory-sso-profile](https://github.com/uktrade/directory-sso-profile)** |  |
+## Development
 
-For more information on installation please check the [Developers Onboarding Checklist](https://uktrade.atlassian.net/wiki/spaces/ED/pages/32243946/Developers+onboarding+checklist) 
-
-## Requirements
-
-## Local installation
+### Installing
 
     $ git clone https://github.com/uktrade/directory-sso-proxy
     $ cd directory-sso-proxy
-    $ make
+    $ virtualenv .venv -p python3.6
+    $ source .venv/bin/activate
+    $ pip install -r requirements_text.txt
 
-## Debugging
+### Requirements
 
-### Setup debug environment
+[Python 3.6](https://www.python.org/downloads/release/python-360/)
 
-    $ make debug
+### Configuration
 
-### Run debug webserver
+Secrets such as API keys and environment specific configurations are placed in `conf/.env` - a file that is not added to version control. You will need to create that file locally in order for the project to run.
+
+Here are the env vars to get you going:
+
+```
+TEST_IP_RESTRICTOR_SKIP_SENDER_ID=debug
+TEST_IP_RESTRICTOR_SKIP_SENDER_SECRET=debug
+TEST_SSO_HEALTHCHECK_TOKEN=debug
+SSO_SIGNATURE_SECRET=debug
+SSO_UPSTREAM=debug
+```
+
+### Run the webserver
 
     $ make debug_webserver
 
@@ -36,6 +43,15 @@ For more information on installation please check the [Developers Onboarding Che
 
     $ make debug_test
 
+## Helpful links
+* [Developers Onboarding Checklist](https://uktrade.atlassian.net/wiki/spaces/ED/pages/32243946/Developers+onboarding+checklist)
+* [Gitflow branching](https://uktrade.atlassian.net/wiki/spaces/ED/pages/737182153/Gitflow+and+releases)
+* [GDS service standards](https://www.gov.uk/service-manual/service-standard)
+* [GDS design principles](https://www.gov.uk/design-principles)
+
+## Related projects:
+https://github.com/uktrade?q=directory
+https://github.com/uktrade?q=great
 
 [code-climate-image]: https://codeclimate.com/github/uktrade/directory-sso-proxy/badges/issue_count.svg
 [code-climate]: https://codeclimate.com/github/uktrade/directory-sso-proxy
@@ -46,5 +62,8 @@ For more information on installation please check the [Developers Onboarding Che
 [codecov-image]: https://codecov.io/gh/uktrade/directory-sso-proxy/branch/master/graph/badge.svg
 [codecov]: https://codecov.io/gh/uktrade/directory-sso-proxy
 
-[snyk-image]: https://snyk.io/test/github/uktrade/directory-sso-proxy/badge.svg
-[snyk]: https://snyk.io/test/github/uktrade/directory-sso-proxy
+[gitflow-image]: https://img.shields.io/badge/Branching%20strategy-gitflow-5FBB1C.svg
+[gitflow]: https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
+
+[calver-image]: https://img.shields.io/badge/Versioning%20strategy-CalVer-5FBB1C.svg
+[calver]: https://calver.org
