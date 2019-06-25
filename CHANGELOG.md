@@ -1,5 +1,10 @@
 # Changelog
 
+### Bug fixes
+
+- no ticket - Update Django version to fix security vulnerability.
+- no ticket - Update Django rest framework version to fix security vulnerability.
+
 ## [2019.05.02](https://github.com/uktrade/directory-sso-proxy/releases/tag/2019.05.02)
 [Full Changelog](https://github.com/uktrade/directory-sso-proxy/compare/2019.01.10_1...2019.05.02)
 
