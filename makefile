@@ -31,7 +31,10 @@ DEBUG_SET_ENV_VARS := \
 	export PYTHONDEBUG=true; \
 	export SECURE_SSL_REDIRECT=false; \
 	export HEALTH_CHECK_TOKEN=debug; \
-	export SSO_HEALTH_CHECK_TOKEN=debug
+	export SSO_HEALTH_CHECK_TOKEN=debug; \
+	export SSO_SIGNATURE_SECRET=api_signature_debug ;\
+	export SSO_UPSTREAM=http://sso.trade.great:8003
+
 
 
 debug_webserver:
