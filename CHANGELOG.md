@@ -1,5 +1,14 @@
 # Changelog
 
+## Pre release
+
+### Bug fixes
+
+- No ticket - Upgrade vulnerable django version to django 1.11.23
+
+## [2019.07.09](https://github.com/uktrade/directory-sso-proxy/releases/tag/2019.07.09)
+[Full Changelog](https://github.com/uktrade/directory-sso-proxy/compare/2019.05.02...2019.07.09)
+
 ### Bug fixes
 
 - No ticket - Upgrade vulnerable django version to django 1.11.22
