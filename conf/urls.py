@@ -1,5 +1,6 @@
 from django.conf.urls import url, include
 
+
 import proxy.core.views
 import proxy.healthcheck.views
 import proxy.oauth2.views
@@ -159,3 +160,23 @@ urlpatterns += [
         proxy.utils.StaticProxyView.as_view(),
     ),
 ]
+
+
+authbroker_urls = [
+    url(
+        r'^sso/admin/login/$',
+        proxy.user.views.StaffSSOProxyLoginView.as_view(),
+        name='sso view login'
+    ),
+    url(
+        '^sso/auth/',
+        proxy.user.views.StaffSSOProxyAuthView.as_view(),
+        name='sso view auth'
+    ),
+    url(
+        r'^callback/$',
+        proxy.user.views.StaffSSOProxyLoginView.as_view(),
+        name='sso view callback'
+    )
+]
+urlpatterns = [url('^', include(authbroker_urls))] + urlpatterns
