@@ -172,7 +172,11 @@ authbroker_urls = [
         '^sso/auth/',
         proxy.user.views.StaffSSOProxyAuthView.as_view(),
         name='sso view auth'
-        ),
+    ),
+    url(
+        r'^callback/$',
+        proxy.user.views.StaffSSOProxyLoginView.as_view(),
+        name='sso view callback'
+    )
 ]
-
 urlpatterns = [url('^', include(authbroker_urls))] + urlpatterns
