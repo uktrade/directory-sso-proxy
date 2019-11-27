@@ -1,55 +1,27 @@
+ARGUMENTS = $(filter-out $@,$(MAKECMDGOALS)) $(filter-out --,$(MAKEFLAGS))
+
 clean:
 	-find . -type f -name "*.pyc" -delete
 	-find . -type d -name "__pycache__" -delete
 
-test_requirements:
+install_requirements:
 	pip install -r requirements_test.txt
 
-FLAKE8 := flake8 . --exclude=migrations,.venv
-PYTEST := pytest . --ignore=node_modules --ignore=.venv --ignore=venv --cov=. --cov-config=.coveragerc --capture=no $(pytest_args)
-CODECOV := \
-	if [ "$$CODECOV_REPO_TOKEN" != "" ]; then \
-	   codecov --token=$$CODECOV_REPO_TOKEN ;\
-	fi
+manage:
+	ENV_FILES='secrets-do-not-commit,dev' ./manage.py $(ARGUMENTS)
 
-test:
-	$(FLAKE8) && $(PYTEST) && $(CODECOV)
+pytest:
+	ENV_FILES='test,dev' pytest $(ARGUMENTS)
 
-DJANGO_WEBSERVER := \
-	python manage.py migrate; \
-	python manage.py runserver 0.0.0.0:$$PORT
+requirements:
+	pip-compile requirements.in
+	pip-compile requirements_test.in
 
-django_webserver:
-	$(DJANGO_WEBSERVER)
+secrets:
+	cp conf/env/secrets-template conf/env/secrets-do-not-commit; \
+	sed -i -e 's/#DO NOT ADD SECRETS TO THIS FILE//g' conf/env/secrets-do-not-commit
 
-DEBUG_SET_ENV_VARS := \
-	export SECRET_KEY=debug; \
-	export PORT=8004; \
-	export DEBUG=true; \
-	export SECURE_HSTS_SECONDS=0; \
-	export PYTHONWARNINGS=all; \
-	export PYTHONDEBUG=true; \
-	export SECURE_SSL_REDIRECT=false; \
-	export HEALTH_CHECK_TOKEN=debug; \
-	export SSO_HEALTH_CHECK_TOKEN=debug
+webserver:
+	ENV_FILES='secrets-do-not-commit,dev' python manage.py runserver 0.0.0.0:8004 $(ARGUMENTS)
 
-
-debug_webserver:
-	$(DEBUG_SET_ENV_VARS); $(DJANGO_WEBSERVER);
-
-debug_shell:
-	$(DEBUG_SET_ENV_VARS) && ./manage.py shell
-
-debug_test:
-	$(DEBUG_SET_ENV_VARS) && $(FLAKE8) && $(PYTEST)
-
-debug_pytest:
-	$(DEBUG_SET_ENV_VARS) && $(PYTEST)
-
-debug: test_requirements debug_test
-
-compile_requirements:
-	python3 -m piptools compile requirements.in
-	python3 -m piptools compile requirements_test.in
-
-.PHONY: build clean test_requirements debug_webserver debug_test debug heroku_deploy_dev smoke_tests
+.PHONY: clean install_requirements manage pytest requirements webserver
