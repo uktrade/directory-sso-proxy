@@ -15,33 +15,35 @@
     $ cd directory-sso-proxy
     $ virtualenv .venv -p python3.6
     $ source .venv/bin/activate
-    $ pip install -r requirements_text.txt
+    $ make requirements
 
 ### Requirements
 
 [Python 3.6](https://www.python.org/downloads/release/python-360/)
 
+[Postgres](https://www.postgresql.org/)
+
+[Redis](https://redis.io/)
+
 ### Configuration
 
-Secrets such as API keys and environment specific configurations are placed in `conf/.env` - a file that is not added to version control. You will need to create that file locally in order for the project to run.
+Secrets such as API keys and environment specific configurations are placed in `conf/env/secrets-do-not-commit` - a file that is not added to version control. To create a template secrets file with dummy values run `make secrets`.
 
-Here are the env vars to get you going:
+### Commands
 
-```
-TEST_IP_RESTRICTOR_SKIP_SENDER_ID=debug
-TEST_IP_RESTRICTOR_SKIP_SENDER_SECRET=debug
-TEST_SSO_HEALTHCHECK_TOKEN=debug
-SSO_SIGNATURE_SECRET=debug
-SSO_UPSTREAM=debug
-```
-
-### Run the webserver
-
-    $ make debug_webserver
-
-### Run debug tests
-
-    $ make debug_test
+| Command                       | Description |
+| ----------------------------- | ------------|
+| make clean                    | Delete pyc files |
+| make pytest                   | Run all tests |
+| make pytest test_foo.py       | Run all tests in file called test_foo.py |
+| make pytest -- --last-failed` | Run the last tests to fail |
+| make pytest -- -k foo         | Run the test called foo |
+| make pytest -- <foo>          | Run arbitrary pytest command |
+| make manage <foo>             | Run arbitrary management command |
+| make webserver                | Run the development web server |
+| make requirements             | Compile the requirements file |
+| make install_requirements     | Installed the compile requirements file |
+| make secrets                  | Create your secret env var file |
 
 ## Helpful links
 * [Developers Onboarding Checklist](https://uktrade.atlassian.net/wiki/spaces/ED/pages/32243946/Developers+onboarding+checklist)
@@ -52,6 +54,7 @@ SSO_UPSTREAM=debug
 ## Related projects:
 https://github.com/uktrade?q=directory
 https://github.com/uktrade?q=great
+
 
 [code-climate-image]: https://codeclimate.com/github/uktrade/directory-sso-proxy/badges/issue_count.svg
 [code-climate]: https://codeclimate.com/github/uktrade/directory-sso-proxy

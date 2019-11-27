@@ -1,0 +1,6 @@
+DEBUG=true
+SECRET_KEY=debug
+SECURE_SSL_REDIRECT=false
+SSO_SIGNATURE_SECRET=api_signature_debug
+SSO_UPSTREAM=http://sso.trade.great:8003
+TEST_SSO_HEALTHCHECK_TOKEN=debug
