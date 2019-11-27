@@ -8,7 +8,6 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-env/
 build/
 develop-eggs/
 dist/
@@ -94,7 +93,9 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-# Docker
-.env
-
+# Dynamically created
 .venv
+staticfiles
+media
+conf/.env
+conf/env/secrets-do-not-commit
