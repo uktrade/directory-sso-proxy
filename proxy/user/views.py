@@ -47,3 +47,11 @@ class PasswordChangeProxyView(BaseProxyView):
 
 class PasswordResetDoneProxyView(BaseProxyView):
     pass
+
+
+class StaffSSOProxyLoginView(BaseProxyView):
+    pass
+
+
+class StaffSSOProxyAuthView(BaseProxyView):
+    pass
