@@ -5,6 +5,11 @@
 ### Bug fixes
 
 ### Enhancements
+
+## [2019.12.18](https://github.com/uktrade/directory-sso-proxy/releases/tag/2019.12.18)
+[Full Changelog](https://github.com/uktrade/directory-sso-proxy/compare/2019.10.22...2019.12.18)
+
+### Enhancements
 - TT-1798 Implement staff sso
 - No ticket - Refactor makefile
 
