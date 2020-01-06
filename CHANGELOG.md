@@ -5,6 +5,7 @@
 ### Bug fixes
 
 ### Enhancements
+- No ticket - Refactor to great-proxy
 
 ## [2019.12.18](https://github.com/uktrade/directory-sso-proxy/releases/tag/2019.12.18)
 [Full Changelog](https://github.com/uktrade/directory-sso-proxy/compare/2019.10.22...2019.12.18)
