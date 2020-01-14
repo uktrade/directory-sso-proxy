@@ -31,19 +31,20 @@ Secrets such as API keys and environment specific configurations are placed in `
 
 ### Commands
 
-| Command                       | Description |
-| ----------------------------- | ------------|
-| make clean                    | Delete pyc files |
-| make pytest                   | Run all tests |
-| make pytest test_foo.py       | Run all tests in file called test_foo.py |
-| make pytest -- --last-failed` | Run the last tests to fail |
-| make pytest -- -k foo         | Run the test called foo |
-| make pytest -- <foo>          | Run arbitrary pytest command |
-| make manage <foo>             | Run arbitrary management command |
-| make webserver                | Run the development web server |
-| make requirements             | Compile the requirements file |
-| make install_requirements     | Installed the compile requirements file |
-| make secrets                  | Create your secret env var file |
+| Command                      | Description |
+| ---------------------------- | ------------|
+| make clean                   | Delete pyc files |
+| make pytest                  | Run all tests |
+| make pytest test_foo.py      | Run all tests in file called test_foo.py |
+| make pytest -- --last-failed | Run the last tests to fail |
+| make pytest -- -k foo        | Run the test called foo |
+| make pytest -- <foo>         | Run arbitrary pytest command |
+| make manage <foo>            | Run arbitrary management command |
+| make webserver               | Run the development web server |
+| make requirements            | Compile the requirements file |
+| make install_requirements    | Installed the compile requirements file |
+| make secrets                 | Create your secret env var file |
+
 
 ## Helpful links
 * [Developers Onboarding Checklist](https://uktrade.atlassian.net/wiki/spaces/ED/pages/32243946/Developers+onboarding+checklist)
