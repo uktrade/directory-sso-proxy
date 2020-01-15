@@ -5,6 +5,10 @@
 ### Bug fixes
 
 ### Enhancements
+
+## [2020.01.14(https://github.com/uktrade/directory-sso-profile/releases/tag/2020.01.14)
+[Full Changelog](https://github.com/uktrade/directory-sso-profile/compare/2019.12.18...2020.01.14)
+### Enhancements
 - No ticket - Refactor to great-proxy
 
 ## [2019.12.18](https://github.com/uktrade/directory-sso-proxy/releases/tag/2019.12.18)
