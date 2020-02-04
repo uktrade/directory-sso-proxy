@@ -15,7 +15,7 @@ directory-components==35.9.1
 directory-constants==20.10.0  # via directory-components
 django-environ==0.4.5
 django-revproxy==0.9.15
-django==2.2.8
+django==2.2.10
 djangorestframework==3.11.0
 gunicorn==20.0.4
 idna==2.6                 # via cryptography, requests
@@ -35,6 +35,3 @@ soupsieve==1.9.5          # via beautifulsoup4
 sqlparse==0.3.0           # via django
 urllib3==1.24.2
 zipp==0.6.0               # via importlib-metadata
-
-# The following packages are considered to be unsafe in a requirements file:
-# setuptools
