@@ -2,7 +2,18 @@
 
 ## Pre release
 
+### Enhancements
+
 ### Bug fixes
+
+## [2020.02.04](https://github.com/uktrade/directory-sso-proxy/releases/tag/2020.02.04)
+[Full Changelog](https://github.com/uktrade/directory-sso-proxy/compare/2020.01.14...2020.02.04)
+
+### Bug fixes
+- No ticket - Upgrade django version 2.2.8 to django 2.2.10
+
+## [2020.01.14](https://github.com/uktrade/directory-sso-proxy/releases/tag/2020.01.14)
+[Full Changelog](https://github.com/uktrade/directory-sso-proxy/compare/2019.12.18...2020.01.14)
 
 ### Enhancements
 
