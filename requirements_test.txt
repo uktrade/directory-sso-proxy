@@ -16,7 +16,7 @@ directory-components==35.9.1
 directory-constants==20.10.0  # via directory-components
 django-environ==0.4.5
 django-revproxy==0.9.15
-django==2.2.8
+django==2.2.10
 djangorestframework==3.11.0
 entrypoints==0.3          # via flake8
 flake8==3.7.9
@@ -51,6 +51,3 @@ termcolor==1.1.0          # via pytest-sugar
 urllib3==1.24.3
 wcwidth==0.1.7            # via pytest
 zipp==0.6.0               # via importlib-metadata
-
-# The following packages are considered to be unsafe in a requirements file:
-# setuptools
