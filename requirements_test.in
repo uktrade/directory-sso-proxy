@@ -1,6 +1,6 @@
 -r requirements.in
 
-codecov
+codecov==2.1.7
 flake8
 pytest
 pytest-cov
