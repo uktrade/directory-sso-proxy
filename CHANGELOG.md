@@ -8,6 +8,7 @@
 ### Enhancements
 
 ### Bug fixes
+- No ticket - Fix for codecov status not returning
 
 ## [2020.02.04](https://github.com/uktrade/directory-sso-proxy/releases/tag/2020.02.04)
 [Full Changelog](https://github.com/uktrade/directory-sso-proxy/compare/2020.01.14...2020.02.04)
