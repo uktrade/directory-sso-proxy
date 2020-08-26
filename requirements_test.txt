@@ -9,18 +9,18 @@ beautifulsoup4==4.8.2     # via directory-components
 certifi==2019.9.11        # via requests, sentry-sdk
 cffi==1.13.2              # via cryptography
 chardet==3.0.4            # via requests
-codecov==2.1.7
+codecov==2.1.7            # via -r requirements_test.in
 coverage==4.5.4           # via codecov, pytest-cov
 cryptography==2.8         # via pyopenssl, requests
-directory-components==35.9.1
+directory-components==35.9.1  # via -r requirements.in
 directory-constants==20.10.0  # via directory-components
-django-environ==0.4.5
-django-revproxy==0.9.15
-django==2.2.10
-djangorestframework==3.11.0
+django-environ==0.4.5     # via -r requirements.in
+django-revproxy==0.9.15   # via -r requirements.in
+django==2.2.15            # via -r requirements.in, directory-components, directory-constants, django-revproxy, djangorestframework, sigauth
+djangorestframework==3.11.0  # via -r requirements.in, sigauth
 entrypoints==0.3          # via flake8
-flake8==3.7.9
-gunicorn==20.0.4
+flake8==3.7.9             # via -r requirements_test.in
+gunicorn==20.0.4          # via -r requirements.in
 idna==2.8                 # via requests
 importlib-metadata==0.23  # via jsonschema, pluggy, pytest
 jsonschema==3.2.0         # via directory-components
@@ -36,18 +36,21 @@ pyflakes==2.1.1           # via flake8
 pyopenssl==19.1.0         # via requests
 pyparsing==2.4.5          # via packaging
 pyrsistent==0.15.6        # via jsonschema
-pytest-cov==2.8.1
-pytest-django==3.7.0
-pytest-sugar==0.9.2
-pytest==5.3.1
+pytest-cov==2.8.1         # via -r requirements_test.in
+pytest-django==3.7.0      # via -r requirements_test.in
+pytest-sugar==0.9.2       # via -r requirements_test.in
+pytest==5.3.1             # via -r requirements_test.in, pytest-cov, pytest-django, pytest-sugar
 pytz==2019.3              # via django
-requests[security]==2.22.0
-sentry-sdk==0.13.4
-sigauth==4.1.1
+requests[security]==2.22.0  # via -r requirements.in, codecov
+sentry-sdk==0.13.4        # via -r requirements.in
+sigauth==4.1.1            # via -r requirements.in
 six==1.13.0               # via cryptography, jsonschema, mohawk, packaging, pyopenssl, pyrsistent
 soupsieve==1.9.5          # via beautifulsoup4
 sqlparse==0.3.0           # via django
 termcolor==1.1.0          # via pytest-sugar
-urllib3==1.24.3
+urllib3==1.24.3           # via -r requirements.in, django-revproxy, requests, sentry-sdk
 wcwidth==0.1.7            # via pytest
 zipp==0.6.0               # via importlib-metadata
+
+# The following packages are considered to be unsafe in a requirements file:
+# setuptools
