@@ -16,6 +16,10 @@
     $ virtualenv .venv -p python3.6
     $ source .venv/bin/activate
     $ make requirements
+    
+### Getting started
+
+    $ make webserver
 
 ### Requirements
 

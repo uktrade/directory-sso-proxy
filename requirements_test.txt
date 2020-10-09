@@ -9,14 +9,14 @@ beautifulsoup4==4.8.2     # via directory-components
 certifi==2019.9.11        # via requests, sentry-sdk
 cffi==1.13.2              # via cryptography
 chardet==3.0.4            # via requests
-codecov==2.0.15
+codecov==2.1.7
 coverage==4.5.4           # via codecov, pytest-cov
 cryptography==2.8         # via pyopenssl, requests
 directory-components==35.9.1
 directory-constants==20.10.0  # via directory-components
 django-environ==0.4.5
 django-revproxy==0.9.15
-django==2.2.8
+django==2.2.10
 djangorestframework==3.11.0
 entrypoints==0.3          # via flake8
 flake8==3.7.9
@@ -51,6 +51,3 @@ termcolor==1.1.0          # via pytest-sugar
 urllib3==1.24.3
 wcwidth==0.1.7            # via pytest
 zipp==0.6.0               # via importlib-metadata
-
-# The following packages are considered to be unsafe in a requirements file:
-# setuptools
