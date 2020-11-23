@@ -2,9 +2,13 @@
 
 ## Pre release
 
+## Hotfix
+- No ticket - v3-cipipeline manifest.yml file fix
+
 ### Enhancements
 
 ### Bug fixes
+- No ticket - Fix for codecov status not returning
 
 ## [2020.02.04](https://github.com/uktrade/directory-sso-proxy/releases/tag/2020.02.04)
 [Full Changelog](https://github.com/uktrade/directory-sso-proxy/compare/2020.01.14...2020.02.04)
@@ -15,6 +19,10 @@
 ## [2020.01.14](https://github.com/uktrade/directory-sso-proxy/releases/tag/2020.01.14)
 [Full Changelog](https://github.com/uktrade/directory-sso-proxy/compare/2019.12.18...2020.01.14)
 
+### Enhancements
+
+## [2020.01.14(https://github.com/uktrade/directory-sso-profile/releases/tag/2020.01.14)
+[Full Changelog](https://github.com/uktrade/directory-sso-profile/compare/2019.12.18...2020.01.14)
 ### Enhancements
 - No ticket - Refactor to great-proxy
 
