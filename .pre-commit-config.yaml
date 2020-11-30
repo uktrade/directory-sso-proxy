@@ -3,7 +3,7 @@ repos:
       rev: 20.8b1
       hooks:
           - id: black
-            args: ["--skip-string-normalization", "--line-length=120"]
+          # Config for black lives in pyproject.toml
     - repo: https://github.com/asottile/blacken-docs
       rev: v1.6.0
       hooks:
