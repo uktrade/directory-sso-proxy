@@ -2,10 +2,14 @@
 
 ## Pre release
 
+### Enhancements
+
+
 ## Hotfix
 - No ticket - v3-cipipeline manifest.yml file fix
 
 ### Enhancements
+- GP2-1068 - adopt Black auto-formatting + provide optional pre-commit config
 
 ### Bug fixes
 - No ticket - Fix for codecov status not returning
