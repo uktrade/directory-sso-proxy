@@ -39,7 +39,7 @@ jobs:
         command: |
           python3 -m venv .venv
           . .venv/bin/activate
-          pip install black
+          pip install flake8
           flake8 . --exclude=migrations,.venv
 
   black:
@@ -54,11 +54,11 @@ jobs:
         command: |
           python3 -m venv .venv
           . .venv/bin/activate
-          pip install flake8
+          pip install black
           black ./ --check
 
 workflows:
-  version: 3
+  version: 2
   test_and_code_checks:
     jobs:
       - test
