@@ -10,6 +10,15 @@ install_requirements:
 manage:
 	ENV_FILES='secrets-do-not-commit,dev' ./manage.py $(ARGUMENTS)
 
+autoformat:
+	# configuration for black is in pyproject.toml
+	black ./
+
+checks:
+	flake8 ./
+	# configuration for black is in pyproject.toml
+	black ./ --check
+
 pytest:
 	ENV_FILES='test,dev' pytest $(ARGUMENTS)
 
@@ -24,4 +33,4 @@ secrets:
 webserver:
 	ENV_FILES='secrets-do-not-commit,dev' python manage.py runserver 0.0.0.0:8004 $(ARGUMENTS)
 
-.PHONY: clean install_requirements manage pytest requirements webserver
+.PHONY: autoformat clean install_requirements manage preflight pytest requirements webserver

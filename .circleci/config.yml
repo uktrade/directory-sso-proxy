@@ -39,12 +39,28 @@ jobs:
         command: |
           python3 -m venv .venv
           . .venv/bin/activate
-          pip install flake8
+          pip install black
           flake8 . --exclude=migrations,.venv
 
+  black:
+    docker:
+    - image: circleci/python:3.6.6
+    steps:
+    - checkout
+    - setup_remote_docker:
+        docker_layer_caching: true
+    - run:
+        name: Run Black in check mode
+        command: |
+          python3 -m venv .venv
+          . .venv/bin/activate
+          pip install flake8
+          black ./ --check
+
 workflows:
-  version: 2
-  test_and_flake8:
+  version: 3
+  test_and_code_checks:
     jobs:
       - test
       - flake8
+      - black
