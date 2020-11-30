@@ -10,14 +10,15 @@ install_requirements:
 manage:
 	ENV_FILES='secrets-do-not-commit,dev' ./manage.py $(ARGUMENTS)
 
+# configuration for black and isort is in pyproject.toml
 autoformat:
-	# configuration for black is in pyproject.toml
-	black ./
+	isort $(PWD)
+	black $(PWD)
 
 checks:
-	flake8 ./
-	# configuration for black is in pyproject.toml
-	black ./ --check
+	isort $(PWD) --check
+	black $(PWD) --check --verbose
+	flake8 .
 
 pytest:
 	ENV_FILES='test,dev' pytest $(ARGUMENTS)
