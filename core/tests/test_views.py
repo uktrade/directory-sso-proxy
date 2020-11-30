@@ -7,6 +7,8 @@ import revproxy.views
 import urllib3.response
 from django.test.client import Client
 
+from core.views import ProxyView
+
 
 @pytest.fixture
 def no_remote_addr_client():
@@ -65,3 +67,22 @@ def test_if_x_forwarded_for_and_remote_addr_then_are_concat_with_comma(mock_urlo
 
     headers = mock_pool_manager.urlopen.call_args[1]['headers']
     assert headers['X-Forwarded-For'] == '1.2.3.4, 4.3.2.1'
+
+
+@mock.patch('core.views.ProxyView.get_upstream')
+@mock.patch('urllib3.poolmanager.PoolManager.urlopen')
+def test_get_upstream_response_http_error_logged_and_raised(
+    mock_urlopen, mock_get_upstream, caplog, client, rf, settings, mock_response
+):
+    mock_urlopen.side_effect = urllib3.exceptions.HTTPError("Fake problem")
+    mock_get_upstream.return_value = "https://example.com/fake/path"
+
+    fake_request = rf.get('/sso/test/path')
+    view = ProxyView()
+    view.request_headers = {}
+
+    with pytest.raises(urllib3.exceptions.HTTPError) as ctx:
+        view.get_upstream_response(fake_request)
+
+    assert 'Fake problem' in caplog.text
+    assert str(ctx.value) == 'Fake problem'
