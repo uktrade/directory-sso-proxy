@@ -10,6 +10,16 @@ install_requirements:
 manage:
 	ENV_FILES='secrets-do-not-commit,dev' ./manage.py $(ARGUMENTS)
 
+# configuration for black and isort is in pyproject.toml
+autoformat:
+	isort $(PWD)
+	black $(PWD)
+
+checks:
+	isort $(PWD) --check
+	black $(PWD) --check --verbose
+	flake8 .
+
 pytest:
 	ENV_FILES='test,dev' pytest $(ARGUMENTS)
 
@@ -24,4 +34,4 @@ secrets:
 webserver:
 	ENV_FILES='secrets-do-not-commit,dev' python manage.py runserver 0.0.0.0:8004 $(ARGUMENTS)
 
-.PHONY: clean install_requirements manage pytest requirements webserver
+.PHONY: autoformat clean install_requirements manage preflight pytest requirements webserver

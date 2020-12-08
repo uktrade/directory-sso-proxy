@@ -2,7 +2,6 @@ import environ
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
-
 env = environ.Env()
 for env_file in env.list('ENV_FILES', default=[]):
     env.read_env(f'conf/env/{env_file}')
@@ -14,10 +13,7 @@ DEBUG = env.bool('DEBUG', False)
 # PaaS, we can open ALLOWED_HOSTS
 ALLOWED_HOSTS = ['*']
 
-INSTALLED_APPS = [
-    'revproxy',
-    'core'
-]
+INSTALLED_APPS = ['revproxy', 'core']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -37,37 +33,18 @@ if DEBUG:
     LOGGING = {
         'version': 1,
         'disable_existing_loggers': False,
-        'filters': {
-            'require_debug_false': {
-                '()': 'django.utils.log.RequireDebugFalse'
-            }
-        },
-        'handlers': {
-            'console': {
-                'level': 'DEBUG',
-                'class': 'logging.StreamHandler',
-            },
-        },
+        'filters': {'require_debug_false': {'()': 'django.utils.log.RequireDebugFalse'}},
+        'handlers': {'console': {'level': 'DEBUG', 'class': 'logging.StreamHandler'}},
         'loggers': {
-            'django.request': {
-                'handlers': ['console'],
-                'level': 'ERROR',
-                'propagate': True,
-            },
-            '': {
-                'handlers': ['console'],
-                'level': 'DEBUG',
-                'propagate': False,
-            },
-        }
+            'django.request': {'handlers': ['console'], 'level': 'ERROR', 'propagate': True},
+            '': {'handlers': ['console'], 'level': 'DEBUG', 'propagate': False},
+        },
     }
 
 # Sentry
 if env.str('SENTRY_DSN', ''):
     sentry_sdk.init(
-        dsn=env.str('SENTRY_DSN'),
-        environment=env.str('SENTRY_ENVIRONMENT'),
-        integrations=[DjangoIntegration()]
+        dsn=env.str('SENTRY_DSN'), environment=env.str('SENTRY_ENVIRONMENT'), integrations=[DjangoIntegration()]
     )
 
 

@@ -1,10 +1,8 @@
-import urllib3
-
-from revproxy.response import get_django_response
 import revproxy.views
-
+import urllib3
 from django.conf import settings
 from django.shortcuts import redirect
+from revproxy.response import get_django_response
 
 from core import signature
 
@@ -96,12 +94,9 @@ class ProxyView(revproxy.views.ProxyView):
                 headers=self.request_headers,
                 body=request_payload,
                 decode_content=False,
-                preload_content=False
+                preload_content=False,
             )
-            self.log.debug(
-                'Proxy response header: %s',
-                upstream_response.getheaders()
-            )
+            self.log.debug('Proxy response header: %s', upstream_response.getheaders())
         except urllib3.exceptions.HTTPError as error:
             self.log.exception(error)
             raise
