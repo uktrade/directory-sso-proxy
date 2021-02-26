@@ -14,9 +14,10 @@
 
     $ git clone https://github.com/uktrade/directory-sso-proxy
     $ cd directory-sso-proxy
-    $ virtualenv .venv -p python3.6
+    $ virtualenv .venv -p python3.6.12
     $ source .venv/bin/activate
     $ make requirements
+    $ make install_requirements
 
 ### Getting started
 
