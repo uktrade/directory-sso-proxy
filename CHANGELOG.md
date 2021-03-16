@@ -3,6 +3,7 @@
 ## Pre release
 
 ### Enhancements
+- No ticket - Upgrade cryptography package
 
 ### Bug fixes
 
