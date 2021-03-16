@@ -3,7 +3,12 @@
 ## Pre release
 
 ### Enhancements
+- No ticket - Upgrade cryptography package
 
+### Bug fixes
+
+## [1.2.0](https://github.com/uktrade/directory-sso-proxy/releases/tag/1.2.0)
+[Full Changelog](https://github.com/uktrade/great-cms/compare/1.1.0...1.2.0)
 
 ## Hotfix
 - No ticket - v3-cipipeline manifest.yml file fix
