@@ -49,7 +49,7 @@ django-environ==0.4.5
     # via -r requirements.in
 django-revproxy==0.9.15
     # via -r requirements.in
-django==2.2.17
+django==2.2.19
     # via
     #   -r requirements.in
     #   directory-components
@@ -57,7 +57,7 @@ django==2.2.17
     #   django-revproxy
     #   djangorestframework
     #   sigauth
-djangorestframework==3.11.0
+djangorestframework==3.12.2
     # via
     #   -r requirements.in
     #   sigauth
