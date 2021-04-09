@@ -3,6 +3,7 @@
 ## Pre release
 
 ### Enhancements
+- GP2-2224 - Python upgrade to 3.9.1
 - No ticket - Upgrade cryptography package
 
 ### Bug fixes
