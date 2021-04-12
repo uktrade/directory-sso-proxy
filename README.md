@@ -14,9 +14,10 @@
 
     $ git clone https://github.com/uktrade/directory-sso-proxy
     $ cd directory-sso-proxy
-    $ virtualenv .venv -p python3.6
+    $ virtualenv .venv -p python3.6.12
     $ source .venv/bin/activate
     $ make requirements
+    $ make install_requirements
 
 ### Getting started
 
@@ -24,7 +25,7 @@
 
 ### Requirements
 
-[Python 3.6](https://www.python.org/downloads/release/python-360/)
+[Python 3.6.12](https://www.python.org/downloads/release/python-3612/)
 
 [Postgres](https://www.postgresql.org/)
 
