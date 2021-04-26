@@ -3,6 +3,13 @@
 ## Pre release
 
 ### Enhancements
+
+### Bug fixes
+
+## [1.22](https://github.com/uktrade/directory-sso-proxy/releases/tag/1.22)
+[Full Changelog](https://github.com/uktrade/directory-sso-proxy/compare/1.21...1.22)
+
+### Enhancements
 - GP2-2224 - Python upgrade to 3.9.1
 - No ticket - Upgrade cryptography package
 
