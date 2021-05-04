@@ -87,7 +87,7 @@ pluggy==0.13.1
     # via pytest
 pre-commit-hooks==3.3.0
     # via -r requirements_test.in
-py==1.8.0
+py==1.10.0
     # via pytest
 pycodestyle==2.6.0
     # via flake8
