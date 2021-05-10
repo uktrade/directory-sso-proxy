@@ -3,6 +3,7 @@
 ## Pre release
 
 ### Enhancements
+- NOTICKET - Python upgrade to 3.9.2
 
 ### Bug fixes
 
