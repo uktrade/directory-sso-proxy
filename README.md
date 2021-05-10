@@ -25,7 +25,7 @@
 
 ### Requirements
 
-[Python 3.9.1](https://www.python.org/downloads/release/python-391/)
+[Python 3.9.2](https://www.python.org/downloads/release/python-392/)
 
 [Postgres](https://www.postgresql.org/)
 
