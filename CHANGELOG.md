@@ -3,6 +3,7 @@
 ## Pre release
 ### Bug fixes
 ### Enhancements
+- no-ticket - dependencies upgrade
 
 ## [1.23](https://github.com/uktrade/directory-sso-proxy/releases/tag/1.23)
 [Full Changelog](https://github.com/uktrade/directory-sso-proxy/compare/1.23...1.23)
