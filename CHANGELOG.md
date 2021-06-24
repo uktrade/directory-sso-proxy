@@ -1,8 +1,11 @@
 # Changelog
 
 ## Pre release
+
 ### Bug fixes
+
 ### Enhancements
+- GP2-2841 - Standardisation of python buildpack
 - no-ticket - dependencies upgrade
 
 ## [1.23](https://github.com/uktrade/directory-sso-proxy/releases/tag/1.23)
