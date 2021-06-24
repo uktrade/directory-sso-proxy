@@ -5,6 +5,7 @@ clean:
 	-find . -type d -name "__pycache__" -delete
 
 install_requirements:
+	pip install --upgrade pip
 	pip install -r requirements_test.txt
 
 manage:
