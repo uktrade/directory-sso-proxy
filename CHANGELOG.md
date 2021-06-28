@@ -1,7 +1,7 @@
 # Changelog
 
 ## Pre release
-
+- GP2-2867 - Dockerise d-sso-proxy
 ### Bug fixes
 
 ### Enhancements
