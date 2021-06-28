@@ -3,6 +3,11 @@
 ## Pre release
 - GP2-2867 - Dockerise d-sso-proxy
 ### Bug fixes
+### Enhancements
+
+
+## [1.4.0](https://github.com/uktrade/directory-sso-proxy/releases/tag/1.4.0)
+[Full Changelog](https://github.com/uktrade/directory-sso-proxy/compare/1.4.0...1.23)
 
 ### Enhancements
 - GP2-2841 - Standardisation of python buildpack
