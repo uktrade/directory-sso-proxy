@@ -27,9 +27,9 @@ directory-constants==20.10.0
     # via directory-components
 django-environ==0.4.5
     # via -r requirements.in
-django-revproxy==0.9.15
+django-revproxy==0.10.0
     # via -r requirements.in
-django==2.2.20
+django==2.2.24
     # via
     #   -r requirements.in
     #   directory-components
@@ -57,7 +57,7 @@ pyrsistent==0.15.6
     # via jsonschema
 pytz==2017.2
     # via django
-requests[security]==2.22.0
+requests[security]==2.25.1
     # via -r requirements.in
 sentry-sdk==0.13.4
     # via -r requirements.in
@@ -72,7 +72,7 @@ soupsieve==1.9.5
     # via beautifulsoup4
 sqlparse==0.3.0
     # via django
-urllib3==1.24.2
+urllib3==1.26.5
     # via
     #   -r requirements.in
     #   django-revproxy
