@@ -29,7 +29,7 @@ django-environ==0.4.5
     # via -r requirements.in
 django-revproxy==0.10.0
     # via -r requirements.in
-django==2.2.24
+django==2.2.27
     # via
     #   -r requirements.in
     #   directory-components
