@@ -4,6 +4,8 @@
 ### Bug fixes
 ### Enhancements
 
+- GLS-403 - Upgrade CF's Python buildpack and Python runtime versions
+
 ## [1.5.0](https://github.com/uktrade/directory-sso-proxy/releases/tag/1.5.0)
 [Full Changelog](https://github.com/uktrade/directory-sso-proxy/compare/1.3.0...1.5.0)
 - GP2-2867 - Dockerise d-sso-proxy
