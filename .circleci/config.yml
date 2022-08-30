@@ -1,8 +1,9 @@
 version: 2
 jobs:
   test:
+    working_directory: ~/directory-sso-proxy
     docker:
-      - image: circleci/python:3.9.2
+      - image: cimg/python:3.9.13
     steps:
       - checkout
       - setup_remote_docker:
@@ -29,7 +30,7 @@ jobs:
 
   flake8:
     docker:
-    - image: circleci/python:3.9.2
+    - image: cimg/python:3.9.13
     steps:
     - checkout
     - setup_remote_docker:
@@ -44,7 +45,7 @@ jobs:
 
   black:
     docker:
-    - image: circleci/python:3.9.2
+    - image: cimg/python:3.9.13
     steps:
     - checkout
     - setup_remote_docker:
