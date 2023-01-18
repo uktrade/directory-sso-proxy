@@ -10,3 +10,4 @@ djangorestframework==3.12.2
 directory-components==35.9.1
 cryptography>=3.3.2
 urllib3>=1.26.5
+certifi>=2022.12.7
