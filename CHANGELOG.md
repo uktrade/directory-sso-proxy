@@ -3,7 +3,7 @@
 ## Pre release
 ### Bug fixes
 ### Enhancements
-
+- KLS-332 - Upgrade Certify version
 - GLS-403 - Upgrade CF's Python buildpack and Python runtime versions
 
 ## [1.5.0](https://github.com/uktrade/directory-sso-proxy/releases/tag/1.5.0)
