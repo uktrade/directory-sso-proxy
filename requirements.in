@@ -1,4 +1,4 @@
-django==2.2.24
+django==2.2.28
 django-revproxy==0.10.0
 django-environ==0.4.5
 sentry-sdk==0.13.4
@@ -10,3 +10,4 @@ djangorestframework==3.12.2
 directory-components==35.9.1
 cryptography>=3.3.2
 urllib3>=1.26.5
+certifi>=2022.12.7
