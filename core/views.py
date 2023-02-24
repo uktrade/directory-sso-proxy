@@ -8,7 +8,6 @@ from core import signature
 
 
 class ProxyView(revproxy.views.ProxyView):
-
     upstream = settings.SSO_UPSTREAM
     url_prefix = '/sso'
 
