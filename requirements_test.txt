@@ -10,7 +10,7 @@ attrs==19.3.0
     #   pytest
 beautifulsoup4==4.8.2
     # via directory-components
-black==22.10.0
+black==23.1.0
     # via
     #   -r requirements_test.in
     #   blacken-docs
@@ -33,7 +33,7 @@ coverage==4.5.4
     # via
     #   codecov
     #   pytest-cov
-cryptography==3.4.6
+cryptography==39.0.1
     # via
     #   -r requirements.in
     #   pyopenssl
@@ -76,8 +76,9 @@ more-itertools==7.2.0
     # via pytest
 mypy-extensions==0.4.3
     # via black
-packaging==19.2
+packaging==23.0
     # via
+    #   black
     #   pytest
     #   pytest-sugar
 pathspec==0.10.3
@@ -98,8 +99,6 @@ pyflakes==2.2.0
     # via flake8
 pyopenssl==19.1.0
     # via requests
-pyparsing==2.4.5
-    # via packaging
 pyrsistent==0.15.6
     # via jsonschema
 pytest==5.3.1
@@ -130,7 +129,6 @@ six==1.13.0
     # via
     #   jsonschema
     #   mohawk
-    #   packaging
     #   pyopenssl
 soupsieve==1.9.5
     # via beautifulsoup4
