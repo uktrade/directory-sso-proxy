@@ -11,3 +11,4 @@ directory-components==35.9.1
 cryptography>=39.0.1
 urllib3>=1.26.5
 certifi>=2022.12.7
+sqlparse==0.4.4 

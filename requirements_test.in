@@ -1,10 +1,11 @@
 -r requirements.in
 
-codecov==2.1.7
 pytest
 pytest-cov
 pytest-django
 pytest-sugar
+pytest-codecov
+GitPython
 
 # Pinned because pre-commit features specific versions
 black==23.1.0
