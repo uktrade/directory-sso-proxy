@@ -39,7 +39,7 @@ directory-components==39.1.0
     # via -r requirements.in
 directory-constants==23.1.0
     # via directory-components
-django==4.1.9
+django==4.1.10
     # via
     #   -r requirements.in
     #   directory-components
