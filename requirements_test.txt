@@ -18,7 +18,7 @@ black==23.1.0
     #   blacken-docs
 blacken-docs==1.6.0
     # via -r requirements_test.in
-certifi==2022.12.7
+certifi==2023.7.22
     # via
     #   -r requirements.in
     #   requests
