@@ -59,7 +59,7 @@ flake8==3.8.4
     # via -r requirements_test.in
 gitdb==4.0.10
     # via gitpython
-gitpython==3.1.31
+gitpython==3.1.32
     # via -r requirements_test.in
 gunicorn==20.0.4
     # via -r requirements.in
@@ -135,6 +135,7 @@ six==1.13.0
     # via
     #   jsonschema
     #   mohawk
+    #   pyrsistent
 smmap==5.0.0
     # via gitdb
 soupsieve==1.9.5
