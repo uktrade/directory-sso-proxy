@@ -156,7 +156,7 @@ typing-extensions==4.4.0
     # via
     #   asgiref
     #   black
-urllib3==1.26.15
+urllib3==1.26.18
     # via
     #   -r requirements.in
     #   django-revproxy-fix
