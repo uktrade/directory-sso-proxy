@@ -25,7 +25,7 @@ directory-components==39.1.4
     # via -r requirements.in
 directory-constants==23.1.0
     # via directory-components
-django==4.1.13
+django==4.2
     # via
     #   -r requirements.in
     #   directory-components
@@ -56,9 +56,7 @@ pyrsistent==0.15.6
 pytz==2023.3
     # via djangorestframework
 requests[security]==2.31.0
-    # via
-    #   -r requirements.in
-    #   requests
+    # via -r requirements.in
 sentry-sdk==1.14.0
     # via -r requirements.in
 sigauth==5.2.0
