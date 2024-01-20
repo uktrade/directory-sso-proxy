@@ -94,6 +94,7 @@ Temporary Items
 .apdisk
 
 # Dynamically created
+venv
 .venv
 staticfiles
 media
