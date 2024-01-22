@@ -99,3 +99,6 @@ staticfiles
 media
 conf/.env
 conf/env/secrets-do-not-commit
+
+#Docker config file
+Dockerfile.dev
