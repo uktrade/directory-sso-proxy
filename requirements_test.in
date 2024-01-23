@@ -5,7 +5,7 @@ pytest-cov
 pytest-django
 pytest-sugar
 pytest-codecov
-GitPython==3.1.37
+GitPython==3.1.41
 
 # Pinned because pre-commit features specific versions
 black==23.1.0
