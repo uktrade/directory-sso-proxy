@@ -34,7 +34,7 @@ coverage[toml]==7.2.3
     #   coverage
     #   pytest-codecov
     #   pytest-cov
-cryptography==42.0.2
+cryptography==42.0.4
     # via -r requirements.in
 directory-components==40.1.1
     # via -r requirements.in
