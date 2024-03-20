@@ -12,7 +12,7 @@ attrs==19.3.0
     #   pytest
 beautifulsoup4==4.8.2
     # via directory-components
-black==23.1.0
+black==24.3.0
     # via
     #   -r requirements_test.in
     #   blacken-docs
