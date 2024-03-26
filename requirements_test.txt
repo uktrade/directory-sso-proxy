@@ -12,7 +12,7 @@ attrs==19.3.0
     #   pytest
 beautifulsoup4==4.8.2
     # via directory-components
-black==23.1.0
+black==24.3.0
     # via
     #   -r requirements_test.in
     #   blacken-docs
@@ -35,13 +35,13 @@ coverage[toml]==7.2.3
     #   pytest-cov
 cryptography==42.0.4
     # via -r requirements.in
-directory-components==40.2.2
+directory-components==40.2.3
     # via -r requirements.in
-directory-constants==24.1.1
+directory-constants==24.1.2
     # via
     #   -r requirements.in
     #   directory-components
-django==4.2.10
+django==4.2.11
     # via
     #   -r requirements.in
     #   directory-components
@@ -49,7 +49,7 @@ django==4.2.10
     #   django-revproxy-fix
     #   djangorestframework
     #   sigauth
-django-environ==0.10.0
+django-environ==0.11.2
     # via -r requirements.in
 django-revproxy-fix==0.10.1
     # via -r requirements.in
@@ -131,7 +131,7 @@ ruamel-yaml-clib==0.2.7
     # via ruamel-yaml
 sentry-sdk==1.14.0
     # via -r requirements.in
-sigauth==5.2.6
+sigauth==5.2.7
     # via -r requirements.in
 six==1.13.0
     # via
