@@ -70,7 +70,7 @@ six==1.11.0
     #   pyrsistent
 soupsieve==1.9.5
     # via beautifulsoup4
-sqlparse==0.4.4
+sqlparse==0.5.0
     # via
     #   -r requirements.in
     #   django
