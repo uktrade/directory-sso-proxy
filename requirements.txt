@@ -43,7 +43,7 @@ djangorestframework==3.14.0
     # via
     #   -r requirements.in
     #   sigauth
-gunicorn==20.0.4
+gunicorn==22.0.0
     # via -r requirements.in
 idna==2.6
     # via requests
@@ -51,6 +51,8 @@ jsonschema==3.2.0
     # via directory-components
 mohawk==0.3.4
     # via sigauth
+packaging==24.0
+    # via gunicorn
 pycparser==2.19
     # via cffi
 pyrsistent==0.15.6
