@@ -65,7 +65,7 @@ gitpython==3.1.41
     # via -r requirements_test.in
 gunicorn==22.0.0
     # via -r requirements.in
-idna==2.8
+idna==3.7
     # via requests
 isort==5.6.4
     # via -r requirements_test.in
