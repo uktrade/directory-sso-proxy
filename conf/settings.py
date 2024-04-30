@@ -1,5 +1,8 @@
+from typing import Any, Dict
+
 import environ
 import sentry_sdk
+from django_log_formatter_asim import ASIMFormatter
 from sentry_sdk.integrations.django import DjangoIntegration
 
 env = environ.Env()
@@ -30,7 +33,7 @@ SECRET_KEY = env.str('SECRET_KEY')
 
 # Logging for development
 if DEBUG:
-    LOGGING = {
+    LOGGING: Dict[str, Any] = {
         'version': 1,
         'disable_existing_loggers': False,
         'filters': {'require_debug_false': {'()': 'django.utils.log.RequireDebugFalse'}},
@@ -38,6 +41,42 @@ if DEBUG:
         'loggers': {
             'django.request': {'handlers': ['console'], 'level': 'ERROR', 'propagate': True},
             '': {'handlers': ['console'], 'level': 'DEBUG', 'propagate': False},
+        },
+    }
+else:
+    LOGGING: Dict[str, Any] = {
+        'version': 1,
+        'disable_existing_loggers': True,
+        'formatters': {
+            "asim_formatter": {
+                "()": ASIMFormatter,
+            },
+            "simple": {
+                "style": "{",
+                "format": "{asctime} {levelname} {message}",
+            },
+        },
+        'handlers': {
+            "asim": {
+                "class": "logging.StreamHandler",
+                "formatter": "asim_formatter",
+            },
+            'console': {
+                'class': 'logging.StreamHandler',
+                'formatter': 'simple',
+            },
+        },
+        "root": {
+            "handlers": ["console"],
+            "level": "INFO",
+        },
+        'loggers': {
+            "django": {
+                "handlers": ["asim"],
+                "level": "INFO",
+                "propagate": False,
+            },
+            'sentry_sdk': {'level': 'ERROR', 'handlers': ['asim'], 'propagate': False},
         },
     }
 
