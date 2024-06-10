@@ -33,7 +33,6 @@ click==8.1.3
     # via black
 coverage[toml]==7.2.3
     # via
-    #   coverage
     #   pytest-codecov
     #   pytest-cov
 cryptography==42.0.4
@@ -44,6 +43,8 @@ directory-constants==24.1.2
     # via
     #   -r requirements.in
     #   directory-components
+directory-healthcheck==3.7
+    # via -r requirements.in
 distlib==0.3.8
     # via virtualenv
 django==4.2.11
@@ -51,12 +52,16 @@ django==4.2.11
     #   -r requirements.in
     #   directory-components
     #   directory-constants
+    #   directory-healthcheck
+    #   django-health-check
     #   django-log-formatter-asim
     #   django-revproxy-fix
     #   djangorestframework
     #   sigauth
 django-environ==0.11.2
     # via -r requirements.in
+django-health-check==3.18.2
+    # via directory-healthcheck
 django-log-formatter-asim==0.0.4
     # via -r requirements.in
 django-revproxy-fix==0.10.1
@@ -146,7 +151,6 @@ requests[security]==2.31.0
     # via
     #   -r requirements.in
     #   pytest-codecov
-    #   requests
 ruamel-yaml==0.17.21
     # via pre-commit-hooks
 ruamel-yaml-clib==0.2.7

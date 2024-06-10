@@ -29,6 +29,8 @@ directory-constants==24.1.2
     # via
     #   -r requirements.in
     #   directory-components
+directory-healthcheck==3.7
+    # via -r requirements.in
 distlib==0.3.8
     # via virtualenv
 django==4.2.11
@@ -36,12 +38,16 @@ django==4.2.11
     #   -r requirements.in
     #   directory-components
     #   directory-constants
+    #   directory-healthcheck
+    #   django-health-check
     #   django-log-formatter-asim
     #   django-revproxy-fix
     #   djangorestframework
     #   sigauth
 django-environ==0.11.2
     # via -r requirements.in
+django-health-check==3.18.2
+    # via directory-healthcheck
 django-log-formatter-asim==0.0.4
     # via -r requirements.in
 django-revproxy-fix==0.10.1
@@ -79,9 +85,7 @@ pytz==2023.3
 pyyaml==6.0.1
     # via pre-commit
 requests[security]==2.31.0
-    # via
-    #   -r requirements.in
-    #   requests
+    # via -r requirements.in
 sentry-sdk==1.14.0
     # via -r requirements.in
 sigauth==5.2.7
