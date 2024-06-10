@@ -1,12 +1,11 @@
+import os
 from typing import Any, Dict
 
 import environ
-import os
 import sentry_sdk
 from django_log_formatter_asim import ASIMFormatter
-from sentry_sdk.integrations.django import DjangoIntegration
-
 from health_check.backends import BaseHealthCheckBackend
+from sentry_sdk.integrations.django import DjangoIntegration
 
 env = environ.Env()
 for env_file in env.list('ENV_FILES', default=[]):
@@ -48,7 +47,7 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages'
+                'django.contrib.messages.context_processors.messages',
             ],
             'loaders': [
                 'django.template.loaders.filesystem.Loader',
@@ -139,7 +138,7 @@ FEATURE_URL_PREFIX_ENABLED = True
 URL_PREFIX_DOMAIN = env.str('URL_PREFIX_DOMAIN', '')
 
 # health check
-DIRECTORY_HEALTHCHECK_TOKEN = 'fsfsdfs' #env.str('HEALTH_CHECK_TOKEN')
+DIRECTORY_HEALTHCHECK_TOKEN = 'fsfsdfs'  # env.str('HEALTH_CHECK_TOKEN')
 DIRECTORY_HEALTHCHECK_BACKENDS = [
     # health_check.db.backends.DatabaseBackend and
     # health_check.cache.CacheBackend are also registered in

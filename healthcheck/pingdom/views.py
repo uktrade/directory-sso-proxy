@@ -1,8 +1,8 @@
-from django.views.generic import TemplateView
-from django.utils.decorators import method_decorator
-from django.views.decorators.cache import never_cache
 from django.http import HttpResponse
 from django.template.loader import render_to_string
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
+from django.views.generic import TemplateView
 
 from healthcheck.pingdom.services import health_check_services
 

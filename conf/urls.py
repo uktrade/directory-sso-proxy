@@ -1,8 +1,7 @@
-from django.urls import re_path, path
+from django.urls import path, re_path
 
 import core.views
 import healthcheck.pingdom.views
-
 
 urlpatterns = [
     re_path(
@@ -12,4 +11,3 @@ urlpatterns = [
     ),
     re_path(r'', core.views.ProxyView.as_view()),
 ]
-
