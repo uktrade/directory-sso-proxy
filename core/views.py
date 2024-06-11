@@ -86,10 +86,8 @@ class ProxyView(revproxy.views.ProxyView):
             method='GET',
             content_type=self.request_headers.get('Content-Type'),
         )
-    
         self.request_headers = {**self.request_headers, **signature_headers}
 
-       
         try:
             # get CSRF token to be used in POST request
             upstream_response = self.http.urlopen(
@@ -107,7 +105,7 @@ class ProxyView(revproxy.views.ProxyView):
             self._set_content_type(request, upstream_response)
 
             response = get_django_response(upstream_response)
-            
+
             if response.status_code == 200:
                 csrftoken = json.loads(response.content.decode('utf-8'))['csrftoken']
                 cookies = {'Cookie': f'csrftoken={csrftoken}'}
@@ -120,7 +118,6 @@ class ProxyView(revproxy.views.ProxyView):
                     content_type=self.request_headers.get('Content-Type'),
                 )
                 self.request_headers = {**self.request_headers, **signature_headers}
-
 
             upstream_response = self.http.urlopen(
                 request.method,
