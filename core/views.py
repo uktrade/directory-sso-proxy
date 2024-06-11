@@ -1,3 +1,5 @@
+import json
+
 import revproxy.views
 import urllib3
 from django.conf import settings
@@ -84,7 +86,30 @@ class ProxyView(revproxy.views.ProxyView):
         )
         self.request_headers = {**self.request_headers, **signature_headers}
 
+        csrf_url = self.get_upstream() + '/csrf/'
         try:
+            # get CSRF token to be used in POST request
+            upstream_response = self.http.urlopen(
+                'GET',
+                csrf_url,
+                redirect=False,
+                retries=self.retries,
+                headers=self.request_headers,
+                body=None,
+                decode_content=False,
+                preload_content=False,
+            )
+
+            self._replace_host_on_redirect_location(request, upstream_response)
+            self._set_content_type(request, upstream_response)
+
+            response = get_django_response(upstream_response)
+            if response.status_code == 200:
+                csrftoken = json.loads(response.content.decode('utf-8'))['csrftoken']
+                cookies = {'Cookie': f'csrftoken={csrftoken}'}
+                self.request_headers = {**self.request_headers, **cookies}
+                request_payload = f'{request_payload}&csrfmiddlewaretoken={csrftoken}'
+
             upstream_response = self.http.urlopen(
                 request.method,
                 request_url,
