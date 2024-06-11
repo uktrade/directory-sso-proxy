@@ -25,8 +25,6 @@ INSTALLED_APPS = [
     'revproxy',
     'core',
     'directory_healthcheck',
-    'health_check.db',
-    'health_check.cache',
 ]
 
 MIDDLEWARE = [
