@@ -1,5 +1,4 @@
 import json
-
 import revproxy.views
 import urllib3
 from django.conf import settings
@@ -72,6 +71,7 @@ class ProxyView(revproxy.views.ProxyView):
 
         self.log.debug('Request headers: %s', self.request_headers)
 
+        breakpoint()
         full_path = request.get_full_path()
         full_path = full_path.replace(self.url_prefix, '', 1)
         request_url = self.get_upstream() + full_path
@@ -83,48 +83,17 @@ class ProxyView(revproxy.views.ProxyView):
         signature_headers = signature.sso_signer.get_signature_headers(
             url=csrf_url,
             body=request_payload,
-            method='GET',
+            method=request.method,
             content_type=self.request_headers.get('Content-Type'),
         )
-        self.request_headers = {**self.request_headers, **signature_headers}
-
+        
         try:
-            # get CSRF token to be used in POST request
             upstream_response = self.http.urlopen(
-                'GET',
+                request.method,
                 csrf_url,
                 redirect=False,
                 retries=self.retries,
-                headers=self.request_headers,
-                body=request_payload,
-                decode_content=False,
-                preload_content=False,
-            )
-
-            self._replace_host_on_redirect_location(request, upstream_response)
-            self._set_content_type(request, upstream_response)
-
-            response = get_django_response(upstream_response)
-
-            if response.status_code == 200:
-                csrftoken = json.loads(response.content.decode('utf-8'))['csrftoken']
-                cookies = {'Cookie': f'csrftoken={csrftoken}'}
-                self.request_headers = {**self.request_headers, **cookies}
-                request_payload = f'{request_payload}&csrfmiddlewaretoken={csrftoken}'
-                signature_headers = signature.sso_signer.get_signature_headers(
-                    url=self.get_upstream() + request.get_full_path(),
-                    body=request_payload,
-                    method=request.method,
-                    content_type=self.request_headers.get('Content-Type'),
-                )
-                self.request_headers = {**self.request_headers, **signature_headers}
-
-            upstream_response = self.http.urlopen(
-                request.method,
-                request_url,
-                redirect=False,
-                retries=self.retries,
-                headers=self.request_headers,
+                headers={**self.request_headers, **signature_headers},
                 body=request_payload,
                 decode_content=False,
                 preload_content=False,
@@ -134,4 +103,33 @@ class ProxyView(revproxy.views.ProxyView):
             self.log.exception(error)
             raise
         else:
-            return upstream_response
+            self._replace_host_on_redirect_location(request, upstream_response)
+            self._set_content_type(request, upstream_response)
+            response = get_django_response(upstream_response)
+            if response.status_code == 200:
+                csrftoken = json.loads(response.content.decode('utf-8'))['csrftoken']
+                cookies = {'Cookie': f'csrftoken={csrftoken}'}
+            
+                request_payload = f'{request_payload}&csrfmiddlewaretoken={csrftoken}'
+                signature_headers = signature.sso_signer.get_signature_headers(
+                    url=request_url,
+                    body=request_payload,
+                    method=request.method,
+                    content_type=self.request_headers.get('Content-Type'),
+                )
+                try:
+                    upstream_response = self.http.urlopen(
+                        request.method,
+                        request_url,
+                        redirect=False,
+                        retries=self.retries,
+                        headers={**self.request_headers, **signature_headers, **cookies},
+                        body=request_payload,
+                        decode_content=False,
+                        preload_content=False,
+                    )
+                except urllib3.exceptions.HTTPError as error:
+                    self.log.exception(error)
+                    raise
+
+                return upstream_response
