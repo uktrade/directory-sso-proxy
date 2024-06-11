@@ -78,15 +78,18 @@ class ProxyView(revproxy.views.ProxyView):
 
         self.log.debug('Request URL: %s', request_url)
 
+        csrf_url = self.get_upstream() + '/csrf/'
+
         signature_headers = signature.sso_signer.get_signature_headers(
-            url=self.get_upstream() + request.get_full_path(),
+            url=csrf_url,
             body=request_payload,
-            method=request.method,
+            method='GET',
             content_type=self.request_headers.get('Content-Type'),
         )
+    
         self.request_headers = {**self.request_headers, **signature_headers}
 
-        csrf_url = self.get_upstream() + '/csrf/'
+       
         try:
             # get CSRF token to be used in POST request
             upstream_response = self.http.urlopen(
@@ -95,7 +98,7 @@ class ProxyView(revproxy.views.ProxyView):
                 redirect=False,
                 retries=self.retries,
                 headers=self.request_headers,
-                body=None,
+                body=request_payload,
                 decode_content=False,
                 preload_content=False,
             )
@@ -104,11 +107,20 @@ class ProxyView(revproxy.views.ProxyView):
             self._set_content_type(request, upstream_response)
 
             response = get_django_response(upstream_response)
+            
             if response.status_code == 200:
                 csrftoken = json.loads(response.content.decode('utf-8'))['csrftoken']
                 cookies = {'Cookie': f'csrftoken={csrftoken}'}
                 self.request_headers = {**self.request_headers, **cookies}
                 request_payload = f'{request_payload}&csrfmiddlewaretoken={csrftoken}'
+                signature_headers = signature.sso_signer.get_signature_headers(
+                    url=self.get_upstream() + request.get_full_path(),
+                    body=request_payload,
+                    method=request.method,
+                    content_type=self.request_headers.get('Content-Type'),
+                )
+                self.request_headers = {**self.request_headers, **signature_headers}
+
 
             upstream_response = self.http.urlopen(
                 request.method,
