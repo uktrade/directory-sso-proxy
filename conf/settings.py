@@ -136,10 +136,7 @@ FEATURE_URL_PREFIX_ENABLED = True
 URL_PREFIX_DOMAIN = env.str('URL_PREFIX_DOMAIN', '')
 
 # health check
-DIRECTORY_HEALTHCHECK_TOKEN = 'fsfsdfs'  # env.str('HEALTH_CHECK_TOKEN')
+DIRECTORY_HEALTHCHECK_TOKEN = env.str('HEALTH_CHECK_TOKEN')
 DIRECTORY_HEALTHCHECK_BACKENDS = [
-    # health_check.db.backends.DatabaseBackend and
-    # health_check.cache.CacheBackend are also registered in
-    # INSTALLED_APPS's health_check.db and health_check.cache
     BaseHealthCheckBackend,
 ]
