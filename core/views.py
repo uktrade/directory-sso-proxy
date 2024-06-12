@@ -64,9 +64,6 @@ class ProxyView(revproxy.views.ProxyView):
         headers['X-Script-Name'] = self.url_prefix
         headers['X-Forwarded-Host'] = self.request.get_host()
 
-        headers['HTTP_ORIGIN'] = 'https://*.example.com'
-        headers['HTTP_REFERER'] = 'https://*.example.com'
-
         return headers
 
     def get_upstream_response(self, request, *args, **kwargs):
@@ -88,6 +85,11 @@ class ProxyView(revproxy.views.ProxyView):
             method=request.method,
             content_type=self.request_headers.get('Content-Type'),
         )
+
+        # required for CSRF
+        self.request.META['HTTP_ORIGIN'] = 'https://*.example.com'
+        self.request.META['HTTP_REFERER'] = 'https://*.example.com'
+
         try:
             upstream_response = self.http.urlopen(
                 request.method,
