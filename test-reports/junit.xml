@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite errors="0" failures="0" hostname="DIT004281" name="pytest" skipped="0" tests="5" time="0.088" timestamp="2024-06-12T10:18:26.079799"><testcase classname="core.tests.test_views" file="core/tests/test_views.py" line="34" name="test_x_forwarded_for_not_set[get_kwargs0]" time="0.025"><system-err>2024-06-12 10:18:26,136 INFO ProxyView created
+2024-06-12 10:18:26,136 ERROR HTTP_X_FORWARDED_FOR was missing from the request &lt;WSGIRequest: GET &apos;/sso/accounts/login/&apos;&gt;. This is not expected: later IP whitelisting will fail.
+2024-06-12 10:18:26,136 ERROR REMOTE_ADDR was missing from the request &lt;WSGIRequest: GET &apos;/sso/accounts/login/&apos;&gt;. This is not expected: later IP whitelisting will fail.
+2024-06-12 10:18:26,137 INFO Normalizing response headers
+2024-06-12 10:18:26,137 INFO Checking for invalid cookies
+2024-06-12 10:18:26,137 INFO Normalizing response headers
+2024-06-12 10:18:26,138 INFO Checking for invalid cookies
+</system-err></testcase><testcase classname="core.tests.test_views" file="core/tests/test_views.py" line="34" name="test_x_forwarded_for_not_set[get_kwargs1]" time="0.003"><system-err>2024-06-12 10:18:26,140 INFO ProxyView created
+2024-06-12 10:18:26,140 ERROR HTTP_X_FORWARDED_FOR was missing from the request &lt;WSGIRequest: GET &apos;/sso/accounts/login/&apos;&gt;. This is not expected: later IP whitelisting will fail.
+2024-06-12 10:18:26,140 ERROR REMOTE_ADDR was missing from the request &lt;WSGIRequest: GET &apos;/sso/accounts/login/&apos;&gt;. This is not expected: later IP whitelisting will fail.
+2024-06-12 10:18:26,141 INFO Normalizing response headers
+2024-06-12 10:18:26,141 INFO Checking for invalid cookies
+2024-06-12 10:18:26,141 INFO Normalizing response headers
+2024-06-12 10:18:26,141 INFO Checking for invalid cookies
+</system-err></testcase><testcase classname="core.tests.test_views" file="core/tests/test_views.py" line="34" name="test_x_forwarded_for_not_set[get_kwargs2]" time="0.002"><system-err>2024-06-12 10:18:26,143 INFO ProxyView created
+2024-06-12 10:18:26,143 ERROR REMOTE_ADDR was missing from the request &lt;WSGIRequest: GET &apos;/sso/accounts/login/&apos;&gt;. This is not expected: later IP whitelisting will fail.
+2024-06-12 10:18:26,144 INFO Normalizing response headers
+2024-06-12 10:18:26,144 INFO Checking for invalid cookies
+2024-06-12 10:18:26,144 INFO Normalizing response headers
+2024-06-12 10:18:26,144 INFO Checking for invalid cookies
+</system-err></testcase><testcase classname="core.tests.test_views" file="core/tests/test_views.py" line="60" name="test_if_x_forwarded_for_and_remote_addr_then_are_concat_with_comma" time="0.002"><system-err>2024-06-12 10:18:26,146 INFO ProxyView created
+2024-06-12 10:18:26,147 INFO Normalizing response headers
+2024-06-12 10:18:26,147 INFO Checking for invalid cookies
+2024-06-12 10:18:26,147 INFO Normalizing response headers
+2024-06-12 10:18:26,147 INFO Checking for invalid cookies
+</system-err></testcase><testcase classname="core.tests.test_views" file="core/tests/test_views.py" line="75" name="test_get_upstream_response_http_error_logged_and_raised" time="0.002"><system-err>2024-06-12 10:18:26,149 INFO ProxyView created
+2024-06-12 10:18:26,149 ERROR Fake problem
+Traceback (most recent call last):
+  File &quot;/Users/davidurquhart/great/directory-sso-proxy/core/views.py&quot;, line 92, in get_upstream_response
+    upstream_response = self.http.urlopen(
+  File &quot;/Users/davidurquhart/.pyenv/versions/3.9.13/lib/python3.9/unittest/mock.py&quot;, line 1092, in __call__
+    return self._mock_call(*args, **kwargs)
+  File &quot;/Users/davidurquhart/.pyenv/versions/3.9.13/lib/python3.9/unittest/mock.py&quot;, line 1096, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File &quot;/Users/davidurquhart/.pyenv/versions/3.9.13/lib/python3.9/unittest/mock.py&quot;, line 1151, in _execute_mock_call
+    raise effect
+urllib3.exceptions.HTTPError: Fake problem
+</system-err></testcase></testsuite></testsuites>
