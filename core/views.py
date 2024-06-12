@@ -85,7 +85,6 @@ class ProxyView(revproxy.views.ProxyView):
             method=request.method,
             content_type=self.request_headers.get('Content-Type'),
         )
-        
         try:
             upstream_response = self.http.urlopen(
                 request.method,
