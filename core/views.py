@@ -71,7 +71,6 @@ class ProxyView(revproxy.views.ProxyView):
 
         self.log.debug('Request headers: %s', self.request_headers)
 
-        breakpoint()
         full_path = request.get_full_path()
         full_path = full_path.replace(self.url_prefix, '', 1)
         request_url = self.get_upstream() + full_path
