@@ -86,7 +86,7 @@ class ProxyView(revproxy.views.ProxyView):
             method=request.method,
             content_type=self.request_headers.get('Content-Type'),
         )
-        
+
         try:
             upstream_response = self.http.urlopen(
                 request.method,
@@ -109,7 +109,7 @@ class ProxyView(revproxy.views.ProxyView):
             if response.status_code == 200:
                 csrftoken = json.loads(response.content.decode('utf-8'))['csrftoken']
                 cookies = {'Cookie': f'csrftoken={csrftoken}'}
-            
+
                 request_payload = f'{request_payload}&csrfmiddlewaretoken={csrftoken}'
                 signature_headers = signature.sso_signer.get_signature_headers(
                     url=request_url,
