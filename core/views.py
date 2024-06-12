@@ -10,7 +10,7 @@ from core import signature
 
 class ProxyView(revproxy.views.ProxyView):
     upstream = settings.SSO_UPSTREAM
-    url_prefix = '/sso'
+    url_prefix = ''
 
     def dispatch(self, request, *args, **kwargs):
         self.request_headers = self.get_request_headers()
@@ -72,7 +72,7 @@ class ProxyView(revproxy.views.ProxyView):
         self.log.debug('Request headers: %s', self.request_headers)
 
         full_path = request.get_full_path()
-        full_path = full_path.replace(self.url_prefix, '', 1)
+        full_path = full_path.replace('/sso', '', 1)
         request_url = self.get_upstream() + full_path
 
         self.log.debug('Request URL: %s', request_url)
@@ -85,7 +85,7 @@ class ProxyView(revproxy.views.ProxyView):
             method=request.method,
             content_type=self.request_headers.get('Content-Type'),
         )
-
+        
         try:
             upstream_response = self.http.urlopen(
                 request.method,
@@ -108,8 +108,9 @@ class ProxyView(revproxy.views.ProxyView):
             if response.status_code == 200:
                 csrftoken = json.loads(response.content.decode('utf-8'))['csrftoken']
                 cookies = {'Cookie': f'csrftoken={csrftoken}'}
-
+                request_payload = request_payload.decode('ascii')
                 request_payload = f'{request_payload}&csrfmiddlewaretoken={csrftoken}'
+                request_payload = request_payload.encode('utf-8')
                 signature_headers = signature.sso_signer.get_signature_headers(
                     url=request_url,
                     body=request_payload,
