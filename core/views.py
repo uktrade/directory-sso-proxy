@@ -64,6 +64,8 @@ class ProxyView(revproxy.views.ProxyView):
         headers['X-Script-Name'] = self.url_prefix
         headers['X-Forwarded-Host'] = self.request.get_host()
 
+        headers['HTTP_ORIGIN'] = 'https://*.example.com'
+
         return headers
 
     def get_upstream_response(self, request, *args, **kwargs):
