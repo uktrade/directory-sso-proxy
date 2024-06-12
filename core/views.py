@@ -65,6 +65,7 @@ class ProxyView(revproxy.views.ProxyView):
         headers['X-Forwarded-Host'] = self.request.get_host()
 
         headers['HTTP_ORIGIN'] = 'https://*.example.com'
+        headers['HTTP_REFERER'] = 'https://*.example.com'
 
         return headers
 
