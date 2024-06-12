@@ -22,7 +22,6 @@ class ProxyView(revproxy.views.ProxyView):
 
         response = self.get_upstream_response(request)
 
-
         self.log.debug('Response returned: %s', response)
 
         return response
@@ -137,7 +136,6 @@ class ProxyView(revproxy.views.ProxyView):
                         self._set_content_type(request, upstream_response)
                         response = get_django_response(upstream_response)
                         return response
-                    
 
     def get_token(self, response):
         json_object = json.loads(response.content.decode('utf-8'))
