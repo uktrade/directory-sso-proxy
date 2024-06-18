@@ -63,8 +63,8 @@ class ProxyView(revproxy.views.ProxyView):
         headers['X-Forwarded-Host'] = host
 
         # required for CSRF
-        headers['Origin'] = host
-        headers['Referer'] = host
+        headers['Origin'] = f'https://{host}'
+        headers['Referer'] = f'https://{host}'
 
 
         return headers
