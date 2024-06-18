@@ -86,10 +86,9 @@ class ProxyView(revproxy.views.ProxyView):
             method=request.method,
             content_type=self.request_headers.get('Content-Type'),
         )
-
         try:
             upstream_response = self.http.urlopen(
-                request.method,
+                'POST',
                 csrf_url,
                 redirect=False,
                 retries=self.retries,
@@ -136,6 +135,7 @@ class ProxyView(revproxy.views.ProxyView):
                         self._set_content_type(request, upstream_response)
                         response = get_django_response(upstream_response)
                         return response
+        return urllib3.response.HTTPResponse(status=400)
 
     def get_token(self, response):
         json_object = json.loads(response.content.decode('utf-8'))
