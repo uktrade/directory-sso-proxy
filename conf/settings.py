@@ -1,13 +1,18 @@
+import os
 from typing import Any, Dict
 
 import environ
 import sentry_sdk
 from django_log_formatter_asim import ASIMFormatter
+from health_check.backends import BaseHealthCheckBackend
 from sentry_sdk.integrations.django import DjangoIntegration
 
 env = environ.Env()
 for env_file in env.list('ENV_FILES', default=[]):
     env.read_env(f'conf/env/{env_file}')
+
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', False)
@@ -16,7 +21,11 @@ DEBUG = env.bool('DEBUG', False)
 # PaaS, we can open ALLOWED_HOSTS
 ALLOWED_HOSTS = ['*']
 
-INSTALLED_APPS = ['revproxy', 'core']
+INSTALLED_APPS = [
+    'revproxy',
+    'core',
+    'directory_healthcheck',
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -25,6 +34,27 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'conf.urls'
+
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(PROJECT_ROOT, 'templates')],
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+            'loaders': [
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+            ],
+        },
+    },
+]
+
 
 WSGI_APPLICATION = 'conf.wsgi.application'
 
@@ -104,3 +134,9 @@ SSO_SIGNATURE_SECRET = env.str('SSO_SIGNATURE_SECRET')
 
 FEATURE_URL_PREFIX_ENABLED = True
 URL_PREFIX_DOMAIN = env.str('URL_PREFIX_DOMAIN', '')
+
+# health check
+DIRECTORY_HEALTHCHECK_TOKEN = env.str('HEALTH_CHECK_TOKEN')
+DIRECTORY_HEALTHCHECK_BACKENDS = [
+    BaseHealthCheckBackend,
+]
