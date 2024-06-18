@@ -58,12 +58,14 @@ class ProxyView(revproxy.views.ProxyView):
                 self.request,
             )
         headers['X-Script-Name'] = self.url_prefix
-        headers['X-Forwarded-Host'] = self.request.get_host()
+
+        host = self.request.get_host()
+        headers['X-Forwarded-Host'] = host
 
         # required for CSRF
-        # TODO set real domain
-        headers['Origin'] = 'https://*.example.com'
-        headers['Referer'] = 'https://*.example.com'
+        headers['Origin'] = host
+        headers['Referer'] = host
+
 
         return headers
 
