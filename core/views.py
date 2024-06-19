@@ -66,7 +66,6 @@ class ProxyView(revproxy.views.ProxyView):
         headers['Origin'] = f'https://{host}'
         headers['Referer'] = f'https://{host}'
 
-
         return headers
 
     def get_upstream_response(self, request, *args, **kwargs):
