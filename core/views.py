@@ -3,6 +3,7 @@ import revproxy.views
 import urllib3
 from django.conf import settings
 from django.shortcuts import redirect
+from django.http import HttpResponse
 from revproxy.response import get_django_response
 
 from core import signature
@@ -13,7 +14,6 @@ class ProxyView(revproxy.views.ProxyView):
     url_prefix = ''
 
     def dispatch(self, request, *args, **kwargs):
-
         self.request_headers = self.get_request_headers()
 
         redirect_to = self._format_path_to_redirect(request)
@@ -84,7 +84,7 @@ class ProxyView(revproxy.views.ProxyView):
         signature_headers = signature.sso_signer.get_signature_headers(
             url=csrf_url,
             body=request_payload,
-            method=request.method,
+            method='POST',
             content_type=self.request_headers.get('Content-Type'),
         )
         try:
@@ -117,13 +117,15 @@ class ProxyView(revproxy.views.ProxyView):
                         method=request.method,
                         content_type=self.request_headers.get('Content-Type'),
                     )
+                    headers = {**self.request_headers, **signature_headers, **cookies}
+                    headers['X-CSRFToken'] = csrftoken
                     try:
                         upstream_response = self.http.urlopen(
                             request.method,
                             request_url,
                             redirect=False,
                             retries=self.retries,
-                            headers={**self.request_headers, **signature_headers, **cookies},
+                            headers=headers,
                             body=request_payload,
                             decode_content=False,
                             preload_content=False,
@@ -136,7 +138,7 @@ class ProxyView(revproxy.views.ProxyView):
                         self._set_content_type(request, upstream_response)
                         response = get_django_response(upstream_response)
                         return response
-        return urllib3.response.HTTPResponse(status=400)
+        return HttpResponse(status=400)
 
     def get_token(self, response):
         json_object = json.loads(response.content.decode('utf-8'))
@@ -145,6 +147,10 @@ class ProxyView(revproxy.views.ProxyView):
 
     def set_token_in_payload(self, csrftoken, request_payload):
         request_payload = request_payload.decode('ascii')
-        request_payload = f'{request_payload}&csrfmiddlewaretoken={csrftoken}'
+        request_payload = (
+            f'{request_payload}&csrfmiddlewaretoken={csrftoken}'
+            if request_payload
+            else f'csrfmiddlewaretoken={csrftoken}'
+        )
         request_payload = request_payload.encode('utf-8')
         return request_payload
