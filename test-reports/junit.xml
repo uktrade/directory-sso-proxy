@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite errors="0" failures="0" hostname="DIT004281" name="pytest" skipped="0" tests="6" time="0.135" timestamp="2024-06-26T09:28:11.932629"><testcase classname="core.tests.test_views" file="core/tests/test_views.py" line="34" name="test_x_forwarded_for_not_set[get_kwargs0]" time="0.037"><system-err>2024-06-26 09:28:12,016 INFO ProxyView created
+2024-06-26 09:28:12,017 ERROR HTTP_X_FORWARDED_FOR was missing from the request &lt;WSGIRequest: GET &apos;/sso/accounts/login/&apos;&gt;. This is not expected: later IP whitelisting will fail.
+2024-06-26 09:28:12,017 ERROR REMOTE_ADDR was missing from the request &lt;WSGIRequest: GET &apos;/sso/accounts/login/&apos;&gt;. This is not expected: later IP whitelisting will fail.
+2024-06-26 09:28:12,018 INFO Normalizing response headers
+2024-06-26 09:28:12,018 INFO Checking for invalid cookies
+</system-err></testcase><testcase classname="core.tests.test_views" file="core/tests/test_views.py" line="34" name="test_x_forwarded_for_not_set[get_kwargs1]" time="0.002"><system-err>2024-06-26 09:28:12,021 INFO ProxyView created
+2024-06-26 09:28:12,021 ERROR HTTP_X_FORWARDED_FOR was missing from the request &lt;WSGIRequest: GET &apos;/sso/accounts/login/&apos;&gt;. This is not expected: later IP whitelisting will fail.
+2024-06-26 09:28:12,021 ERROR REMOTE_ADDR was missing from the request &lt;WSGIRequest: GET &apos;/sso/accounts/login/&apos;&gt;. This is not expected: later IP whitelisting will fail.
+2024-06-26 09:28:12,022 INFO Normalizing response headers
+2024-06-26 09:28:12,022 INFO Checking for invalid cookies
+</system-err></testcase><testcase classname="core.tests.test_views" file="core/tests/test_views.py" line="34" name="test_x_forwarded_for_not_set[get_kwargs2]" time="0.013"><system-err>2024-06-26 09:28:12,024 INFO ProxyView created
+2024-06-26 09:28:12,024 ERROR REMOTE_ADDR was missing from the request &lt;WSGIRequest: GET &apos;/sso/accounts/login/&apos;&gt;. This is not expected: later IP whitelisting will fail.
+2024-06-26 09:28:12,035 INFO Normalizing response headers
+2024-06-26 09:28:12,035 INFO Checking for invalid cookies
+</system-err></testcase><testcase classname="core.tests.test_views" file="core/tests/test_views.py" line="58" name="test_if_x_forwarded_for_and_remote_addr_then_are_concat_with_comma" time="0.003"><system-err>2024-06-26 09:28:12,038 INFO ProxyView created
+2024-06-26 09:28:12,039 INFO Normalizing response headers
+2024-06-26 09:28:12,039 INFO Checking for invalid cookies
+</system-err></testcase><testcase classname="core.tests.test_views" file="core/tests/test_views.py" line="71" name="test_get_upstream_response_http_error_logged_and_raised" time="0.003"><system-err>2024-06-26 09:28:12,041 INFO ProxyView created
+2024-06-26 09:28:12,042 ERROR Fake problem
+Traceback (most recent call last):
+  File &quot;/Users/davidurquhart/great/directory-sso-proxy/core/views.py&quot;, line 154, in get_upstream_response
+    upstream_response = self.http.urlopen(
+  File &quot;/Users/davidurquhart/.pyenv/versions/3.9.13/lib/python3.9/unittest/mock.py&quot;, line 1092, in __call__
+    return self._mock_call(*args, **kwargs)
+  File &quot;/Users/davidurquhart/.pyenv/versions/3.9.13/lib/python3.9/unittest/mock.py&quot;, line 1096, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File &quot;/Users/davidurquhart/.pyenv/versions/3.9.13/lib/python3.9/unittest/mock.py&quot;, line 1151, in _execute_mock_call
+    raise effect
+urllib3.exceptions.HTTPError: Fake problem
+</system-err></testcase><testcase classname="healthcheck.tests.test_views" file="healthcheck/tests/test_views.py" line="3" name="test_pingdom_app_healthcheck_ok" time="0.002"></testcase></testsuite></testsuites>
