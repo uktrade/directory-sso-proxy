@@ -70,12 +70,18 @@ class ProxyView(revproxy.views.ProxyView):
                 self.request,
             )
         headers['X-Script-Name'] = self.url_prefix
-        headers['X-Forwarded-Host'] = self.request.get_host()
+
+        host = self.request.get_host()
+        headers['X-Forwarded-Host'] = host
+
+        # required for CSRF
+        headers['Origin'] = f'https://{host}'
+        headers['Referer'] = f'https://{host}'
 
         return headers
-    
+
     def get_token(self, request):
-    
+
         self.request_headers['X-Script-Name'] = ''
 
         self.log.debug('Request headers: %s', self.request_headers)
@@ -167,7 +173,7 @@ class ProxyView(revproxy.views.ProxyView):
             raise
         else:
             return upstream_response
-        
+
     def _set_token_in_payload(self, csrf_token, request_payload):
         request_payload = request_payload.decode('ascii')
         if 'csrfmiddlewaretoken' in request_payload:
