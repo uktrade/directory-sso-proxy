@@ -7,7 +7,7 @@ gunicorn==22.0.0
 sigauth==5.2.7
 requests[security]==2.31.0
 urllib3>=1.26.18,<2.0.0
-djangorestframework==3.14.0
+djangorestframework==3.15.2
 directory-constants==24.1.2
 directory-components==40.2.3
 directory-healthcheck==3.7
