@@ -86,3 +86,23 @@ def test_get_upstream_response_http_error_logged_and_raised(
 
     assert 'Fake problem' in caplog.text
     assert str(ctx.value) == 'Fake problem'
+
+
+@mock.patch('core.views.ProxyView.get_token')
+@mock.patch('core.views.ProxyView.get_upstream')
+@mock.patch('urllib3.poolmanager.PoolManager.urlopen')
+def test_post_password_reset_with_token(
+    mock_urlopen, mock_get_upstream, mock_get_token, rf
+):
+    mock_urlopen.return_value = urllib3.response.HTTPResponse(status=200)
+    mock_get_upstream.return_value = "https://example.com/fake/path"
+    mock_get_token.return_value = '1234567890'
+
+    fake_request = rf.post('/account/password/reset/')
+    view = ProxyView()
+    view.request_headers = {}
+    view.request = fake_request
+
+    response = view.get_upstream_response(fake_request)
+    assert response.status == 200
+

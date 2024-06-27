@@ -26,7 +26,7 @@ pytest:
 
 # Usage: make pytest_single <path_to_file>::<method_name>
 pytest_single:
-	ENV_FILES='test,dev' \
+	ENV_FILES='secrets-do-not-commit,test,dev' \
 	pytest \
 	    $(ARGUMENTS)
 		--junit-xml=./results/pytest_unit_report.xml \
