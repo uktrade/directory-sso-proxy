@@ -1,9 +1,9 @@
 import json
+
 import revproxy.views
 import urllib3
 from django.conf import settings
 from django.shortcuts import redirect
-from django.http import HttpResponse
 from revproxy.response import get_django_response
 
 from core import signature
@@ -11,7 +11,14 @@ from core import signature
 
 class ProxyView(revproxy.views.ProxyView):
     upstream = settings.SSO_UPSTREAM
-    url_prefix = ''
+    url_prefix = '/sso'
+    crud_methods = (
+        'POST',
+        'PUT',
+        'PATCH',
+        'DELETE',
+    )
+    csrf_token = None
 
     def dispatch(self, request, *args, **kwargs):
         self.request_headers = self.get_request_headers()
@@ -20,7 +27,12 @@ class ProxyView(revproxy.views.ProxyView):
         if redirect_to:
             return redirect(redirect_to)
 
-        response = self.get_upstream_response(request)
+        upstream_response = self.get_upstream_response(request)
+
+        self._replace_host_on_redirect_location(request, upstream_response)
+        self._set_content_type(request, upstream_response)
+
+        response = get_django_response(upstream_response)
 
         self.log.debug('Response returned: %s', response)
 
@@ -68,32 +80,92 @@ class ProxyView(revproxy.views.ProxyView):
 
         return headers
 
+    def get_token(self, request):
+
+        self.request_headers['X-Script-Name'] = ''
+
+        self.log.debug('Request headers: %s', self.request_headers)
+
+        request_url = self.get_upstream() + '/csrf/'
+
+        self.log.debug('Request URL: %s', request_url)
+
+        signature_headers = signature.sso_signer.get_signature_headers(
+            url=request_url,
+            body=b'',
+            method=request.method,
+            content_type=self.request_headers.get('Content-Type'),
+        )
+
+        try:
+            upstream_response = self.http.urlopen(
+                request.method,
+                request_url,
+                redirect=False,
+                retries=self.retries,
+                headers={**self.request_headers, **signature_headers},
+                body=b'',
+                decode_content=False,
+                preload_content=False,
+            )
+            self.log.debug('Proxy response header: %s', upstream_response.getheaders())
+        except urllib3.exceptions.HTTPError as error:
+            self.log.exception(error)
+            raise
+        else:
+            if upstream_response.status == 200:
+                return self._get_token_from_response(upstream_response)
+            else:
+                raise urllib3.exceptions.HTTPError("Bad Request")
+
+    def _get_token_from_response(self, upstream_response):
+        response = get_django_response(upstream_response)
+        try:
+            json_object = json.loads(response.content.decode('utf-8'))
+        except ValueError:
+            raise urllib3.exceptions.HTTPError("Bad Request")
+        else:
+            csrf_token = json_object.get('csrftoken', None)
+            return csrf_token
+
     def get_upstream_response(self, request, *args, **kwargs):
+
+        if request.method in self.crud_methods:
+            self.csrf_token = self.get_token(self.request)
+
+        self.request_headers['X-Script-Name'] = self.url_prefix
+
         request_payload = request.body
 
         self.log.debug('Request headers: %s', self.request_headers)
 
         full_path = request.get_full_path()
-        full_path = full_path.replace('/sso', '', 1)
+        full_path = full_path.replace(self.url_prefix, '', 1)
         request_url = self.get_upstream() + full_path
 
         self.log.debug('Request URL: %s', request_url)
 
-        csrf_url = self.get_upstream() + '/csrf/'
+        if self.csrf_token:
+            request_payload = self._set_token_in_payload(self.csrf_token, request_payload)
 
         signature_headers = signature.sso_signer.get_signature_headers(
-            url=csrf_url,
+            url=self.get_upstream() + request.get_full_path(),
             body=request_payload,
-            method='POST',
+            method=request.method,
             content_type=self.request_headers.get('Content-Type'),
         )
+        self.request_headers = {**self.request_headers, **signature_headers}
+        if self.csrf_token:
+            self.request_headers['X-CSRFToken'] = self.csrf_token
+            cookies = {'Cookie': f'csrftoken={self.csrf_token}'}
+            self.request_headers = {**self.request_headers, **cookies}
         try:
             upstream_response = self.http.urlopen(
-                'POST',
-                csrf_url,
+                request.method,
+                request_url,
                 redirect=False,
                 retries=self.retries,
-                headers={**self.request_headers, **signature_headers},
+                headers=self.request_headers,
                 body=request_payload,
                 decode_content=False,
                 preload_content=False,
@@ -103,54 +175,17 @@ class ProxyView(revproxy.views.ProxyView):
             self.log.exception(error)
             raise
         else:
-            self._replace_host_on_redirect_location(request, upstream_response)
-            self._set_content_type(request, upstream_response)
-            response = get_django_response(upstream_response)
-            if response.status_code == 200:
-                csrftoken = self.get_token(response)
-                if csrftoken:
-                    request_payload = self.set_token_in_payload(csrftoken, request_payload)
-                    cookies = {'Cookie': f'csrftoken={csrftoken}'}
-                    signature_headers = signature.sso_signer.get_signature_headers(
-                        url=request_url,
-                        body=request_payload,
-                        method=request.method,
-                        content_type=self.request_headers.get('Content-Type'),
-                    )
-                    headers = {**self.request_headers, **signature_headers, **cookies}
-                    headers['X-CSRFToken'] = csrftoken
-                    try:
-                        upstream_response = self.http.urlopen(
-                            request.method,
-                            request_url,
-                            redirect=False,
-                            retries=self.retries,
-                            headers=headers,
-                            body=request_payload,
-                            decode_content=False,
-                            preload_content=False,
-                        )
-                    except urllib3.exceptions.HTTPError as error:
-                        self.log.exception(error)
-                        raise
-                    else:
-                        self._replace_host_on_redirect_location(request, upstream_response)
-                        self._set_content_type(request, upstream_response)
-                        response = get_django_response(upstream_response)
-                        return response
-        return HttpResponse(status=400)
+            return upstream_response
 
-    def get_token(self, response):
-        json_object = json.loads(response.content.decode('utf-8'))
-        csrftoken = json_object.get('csrftoken', None)
-        return csrftoken
-
-    def set_token_in_payload(self, csrftoken, request_payload):
+    def _set_token_in_payload(self, csrf_token, request_payload):
         request_payload = request_payload.decode('ascii')
-        request_payload = (
-            f'{request_payload}&csrfmiddlewaretoken={csrftoken}'
-            if request_payload
-            else f'csrfmiddlewaretoken={csrftoken}'
-        )
-        request_payload = request_payload.encode('utf-8')
-        return request_payload
+        if 'csrfmiddlewaretoken' in request_payload:
+            return request_payload.encode('utf-8')
+        else:
+            request_payload = (
+                f'{request_payload}&csrfmiddlewaretoken={csrf_token}'
+                if request_payload
+                else f'csrfmiddlewaretoken={csrf_token}'
+            )
+            request_payload = request_payload.encode('utf-8')
+            return request_payload
