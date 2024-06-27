@@ -45,9 +45,13 @@ def mock_response():
     ),
 )
 @mock.patch('urllib3.poolmanager.PoolManager.urlopen')
-def test_x_forwarded_for_not_set(mock_urlopen, no_remote_addr_client, get_kwargs, settings, mock_response):
+@mock.patch('core.views.ProxyView.get_token')
+def test_x_forwarded_for_not_set(
+    mock_get_token, mock_urlopen, no_remote_addr_client, get_kwargs, settings, mock_response
+):
     settings.FEATURE_URL_PREFIX_ENABLED = True
     mock_urlopen.return_value = mock_response
+    mock_get_token.return_value = '12345678901234567892'
 
     stub = mock.patch('revproxy.views.HTTP_POOLS', wraps=revproxy.views.HTTP_POOLS)
     with stub as mock_pool_manager:
@@ -57,9 +61,13 @@ def test_x_forwarded_for_not_set(mock_urlopen, no_remote_addr_client, get_kwargs
 
 
 @mock.patch('urllib3.poolmanager.PoolManager.urlopen')
-def test_if_x_forwarded_for_and_remote_addr_then_are_concat_with_comma(mock_urlopen, client, settings, mock_response):
+@mock.patch('core.views.ProxyView.get_token')
+def test_if_x_forwarded_for_and_remote_addr_then_are_concat_with_comma(
+    mock_get_token, mock_urlopen, client, settings, mock_response
+):
     settings.FEATURE_URL_PREFIX_ENABLED = False
     mock_urlopen.return_value = mock_response
+    mock_get_token.return_value = '12345678901234567892'
 
     stub = mock.patch('revproxy.views.HTTP_POOLS', wraps=revproxy.views.HTTP_POOLS)
     with stub as mock_pool_manager:
