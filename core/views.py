@@ -114,16 +114,19 @@ class ProxyView(revproxy.views.ProxyView):
             raise
         else:
             if upstream_response.status == 200:
-                response = get_django_response(upstream_response)
-                try:
-                    json_object = json.loads(response.content.decode('utf-8'))
-                except ValueError:
-                    urllib3.exceptions.HTTPError("Bad Request")
-                else:
-                    csrf_token = json_object.get('csrftoken', None)
-                    return csrf_token
+                return self._get_token_from_response(upstream_response)
             else:
                 raise urllib3.exceptions.HTTPError("Bad Request")
+
+    def _get_token_from_response(self, upstream_response):
+        response = get_django_response(upstream_response)
+        try:
+            json_object = json.loads(response.content.decode('utf-8'))
+        except ValueError:
+            raise urllib3.exceptions.HTTPError("Bad Request")
+        else:
+            csrf_token = json_object.get('csrftoken', None)
+            return csrf_token
 
     def get_upstream_response(self, request, *args, **kwargs):
 

@@ -91,12 +91,14 @@ def test_get_upstream_response_http_error_logged_and_raised(
 @mock.patch('core.views.ProxyView.get_token')
 @mock.patch('core.views.ProxyView.get_upstream')
 @mock.patch('urllib3.poolmanager.PoolManager.urlopen')
-def test_post_password_reset_with_token(mock_urlopen, mock_get_upstream, mock_get_token, rf):
+def test_post_password_reset_with_token_with_no_csrfmiiddlewaretoken(
+    mock_urlopen, mock_get_upstream, mock_get_token, rf
+):
     mock_urlopen.return_value = urllib3.response.HTTPResponse(status=200)
     mock_get_upstream.return_value = "https://example.com/fake/path"
     mock_get_token.return_value = '1234567890'
 
-    fake_request = rf.post('/account/password/reset/')
+    fake_request = rf.post('/account/password/reset/', data={'email': 'fred@gmail.com', 'password': 'newpassword'})
     view = ProxyView()
     view.request_headers = {}
     view.request = fake_request
@@ -105,15 +107,20 @@ def test_post_password_reset_with_token(mock_urlopen, mock_get_upstream, mock_ge
     assert response.status == 200
 
 
-@mock.patch('core.views.ProxyView.get_token')
+@mock.patch('core.views.ProxyView._get_token_from_response')
 @mock.patch('core.views.ProxyView.get_upstream')
 @mock.patch('urllib3.poolmanager.PoolManager.urlopen')
-def test_post_password_reset_with_token_and_csrfmiddleewaretoken(mock_urlopen, mock_get_upstream, mock_get_token, rf):
+def test_post_password_reset_with_token_and_csrfmiddleewaretoken(
+    mock_urlopen, mock_get_upstream, mock_get_token_from_response, rf
+):
     mock_urlopen.return_value = urllib3.response.HTTPResponse(status=200)
     mock_get_upstream.return_value = "https://example.com/fake/path"
-    mock_get_token.return_value = '1234567890'
+    mock_get_token_from_response.return_value = '1234567890'
 
-    fake_request = rf.post('/account/password/reset/', data={'csrfmiddlewaretoken': '1234567890'})
+    fake_request = rf.post(
+        '/account/password/reset/',
+        data={'email': 'fred@gmail.com', 'password': 'newpassword', 'csrfmiddlewaretoken': '1234567890'},
+    )
     view = ProxyView()
     view.request_headers = {}
     view.request = fake_request
