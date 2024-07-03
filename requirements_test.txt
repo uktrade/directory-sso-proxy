@@ -147,7 +147,7 @@ pytz==2023.3
     # via djangorestframework
 pyyaml==6.0.1
     # via pre-commit
-requests[security]==2.31.0
+requests[security]==2.32.3
     # via
     #   -r requirements.in
     #   pytest-codecov
