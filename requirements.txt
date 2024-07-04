@@ -103,7 +103,7 @@ sqlparse==0.5.0
     #   django
 typing-extensions==4.6.2
     # via asgiref
-urllib3==1.26.18
+urllib3==1.26.19
     # via
     #   -r requirements.in
     #   django-revproxy-fix

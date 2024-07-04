@@ -6,7 +6,7 @@ sentry-sdk==1.14.0
 gunicorn==22.0.0
 sigauth==5.2.7
 requests[security]>=2.32.0
-urllib3>=1.26.18,<2.0.0
+urllib3>=1.26.19,<2.0.0
 djangorestframework==3.14.0
 directory-constants==24.1.2
 directory-components==40.2.3
