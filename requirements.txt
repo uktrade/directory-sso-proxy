@@ -10,7 +10,7 @@ attrs==19.3.0
     # via jsonschema
 beautifulsoup4==4.8.2
     # via directory-components
-certifi==2023.7.22
+certifi==2024.7.4
     # via
     #   -r requirements.in
     #   requests
