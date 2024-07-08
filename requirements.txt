@@ -52,7 +52,7 @@ django-log-formatter-asim==0.0.4
     # via -r requirements.in
 django-revproxy-fix==0.10.1
     # via -r requirements.in
-djangorestframework==3.14.0
+djangorestframework==3.15.2
     # via
     #   -r requirements.in
     #   sigauth
@@ -80,8 +80,6 @@ pycparser==2.19
     # via cffi
 pyrsistent==0.15.6
     # via jsonschema
-pytz==2023.3
-    # via djangorestframework
 pyyaml==6.0.1
     # via pre-commit
 requests[security]==2.32.3
