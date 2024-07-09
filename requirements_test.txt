@@ -18,7 +18,7 @@ black==24.3.0
     #   blacken-docs
 blacken-docs==1.6.0
     # via -r requirements_test.in
-certifi==2023.7.22
+certifi==2024.7.4
     # via
     #   -r requirements.in
     #   requests
@@ -147,7 +147,7 @@ pytz==2023.3
     # via djangorestframework
 pyyaml==6.0.1
     # via pre-commit
-requests[security]==2.31.0
+requests[security]==2.32.3
     # via
     #   -r requirements.in
     #   pytest-codecov
@@ -184,7 +184,7 @@ typing-extensions==4.4.0
     # via
     #   asgiref
     #   black
-urllib3==1.26.18
+urllib3==1.26.19
     # via
     #   -r requirements.in
     #   django-revproxy-fix

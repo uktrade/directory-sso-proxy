@@ -10,7 +10,7 @@ attrs==19.3.0
     # via jsonschema
 beautifulsoup4==4.8.2
     # via directory-components
-certifi==2023.7.22
+certifi==2024.7.4
     # via
     #   -r requirements.in
     #   requests
@@ -84,7 +84,7 @@ pytz==2023.3
     # via djangorestframework
 pyyaml==6.0.1
     # via pre-commit
-requests[security]==2.31.0
+requests[security]==2.32.3
     # via -r requirements.in
 sentry-sdk==1.14.0
     # via -r requirements.in
@@ -103,7 +103,7 @@ sqlparse==0.5.0
     #   django
 typing-extensions==4.6.2
     # via asgiref
-urllib3==1.26.18
+urllib3==1.26.19
     # via
     #   -r requirements.in
     #   django-revproxy-fix
