@@ -130,8 +130,9 @@ class ProxyView(revproxy.views.ProxyView):
 
     def get_upstream_response(self, request, *args, **kwargs):
 
-        #if request.method in self.crud_methods:
+        if request.method in self.crud_methods:
             #self.csrf_token = self.get_token(self.request)
+            my_token = self.get_token(self.request)
 
         self.request_headers['X-Script-Name'] = self.url_prefix
 
