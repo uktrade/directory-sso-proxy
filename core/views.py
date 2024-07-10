@@ -132,7 +132,7 @@ class ProxyView(revproxy.views.ProxyView):
 
         if request.method in self.crud_methods:
             self.csrf_token = self.get_token(self.request)
-           
+
         self.request_headers['X-Script-Name'] = self.url_prefix
 
         request_payload = request.body
@@ -155,7 +155,7 @@ class ProxyView(revproxy.views.ProxyView):
             content_type=self.request_headers.get('Content-Type'),
         )
         self.request_headers = {**self.request_headers, **signature_headers}
-            
+
         try:
             upstream_response = self.http.urlopen(
                 request.method,
