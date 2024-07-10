@@ -18,7 +18,6 @@ class ProxyView(revproxy.views.ProxyView):
         'PATCH',
         'DELETE',
     )
-    csrf_token = None
 
     def dispatch(self, request, *args, **kwargs):
         self.request_headers = self.get_request_headers()
@@ -130,9 +129,6 @@ class ProxyView(revproxy.views.ProxyView):
 
     def get_upstream_response(self, request, *args, **kwargs):
 
-        if request.method in self.crud_methods:
-            self.csrf_token = self.get_token(self.request)
-
         self.request_headers['X-Script-Name'] = self.url_prefix
 
         request_payload = request.body
@@ -145,8 +141,8 @@ class ProxyView(revproxy.views.ProxyView):
 
         self.log.debug('Request URL: %s', request_url)
 
-        if self.csrf_token:
-            request_payload = self._set_token_in_payload(self.csrf_token, request_payload)
+        if request.method in self.crud_methods:
+            request_payload = self._set_token_in_payload(request_payload, request)
 
         signature_headers = signature.sso_signer.get_signature_headers(
             url=self.get_upstream() + request.get_full_path(),
@@ -174,18 +170,19 @@ class ProxyView(revproxy.views.ProxyView):
         else:
             return upstream_response
 
-    def _set_token_in_payload(self, csrf_token, request_payload):
+    def _set_token_in_payload(self, request_payload, request):
         request_payload = request_payload.decode('ascii')
         if 'csrfmiddlewaretoken' in request_payload:
             return request_payload.encode('utf-8')
         else:
-            request_payload = (
-                f'{request_payload}&csrfmiddlewaretoken={csrf_token}'
-                if request_payload
-                else f'csrfmiddlewaretoken={csrf_token}'
-            )
-            request_payload = request_payload.encode('utf-8')
-            self.request_headers['X-CSRFToken'] = csrf_token
-            cookies = {'Cookie': f'csrftoken={csrf_token}'}
-            self.request_headers = {**self.request_headers, **cookies}
-            return request_payload
+            csrf_token = self.get_token(request)
+            if csrf_token:
+                request_payload = (
+                    f'{request_payload}&csrfmiddlewaretoken={csrf_token}'
+                    if request_payload
+                    else f'csrfmiddlewaretoken={csrf_token}'
+                )
+                self.request_headers['X-CSRFToken'] = csrf_token
+                cookies = {'Cookie': f'csrftoken={csrf_token}'}
+                self.request_headers = {**self.request_headers, **cookies}
+        return request_payload.encode('utf-8')
