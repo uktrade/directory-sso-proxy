@@ -155,10 +155,7 @@ class ProxyView(revproxy.views.ProxyView):
             content_type=self.request_headers.get('Content-Type'),
         )
         self.request_headers = {**self.request_headers, **signature_headers}
-        if self.csrf_token:
-            self.request_headers['X-CSRFToken'] = self.csrf_token
-            cookies = {'Cookie': f'csrftoken={self.csrf_token}'}
-            self.request_headers = {**self.request_headers, **cookies}
+
         try:
             upstream_response = self.http.urlopen(
                 request.method,
@@ -188,4 +185,7 @@ class ProxyView(revproxy.views.ProxyView):
                 else f'csrfmiddlewaretoken={csrf_token}'
             )
             request_payload = request_payload.encode('utf-8')
+            self.request_headers['X-CSRFToken'] = csrf_token
+            cookies = {'Cookie': f'csrftoken={csrf_token}'}
+            self.request_headers = {**self.request_headers, **cookies}
             return request_payload
