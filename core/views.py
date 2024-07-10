@@ -142,7 +142,7 @@ class ProxyView(revproxy.views.ProxyView):
         self.log.debug('Request URL: %s', request_url)
 
         if request.method in self.crud_methods:
-            request_payload = self._set_token_in_payload(request_payload)
+            request_payload = self._set_token_in_payload(request_payload, request)
 
         signature_headers = signature.sso_signer.get_signature_headers(
             url=self.get_upstream() + request.get_full_path(),
