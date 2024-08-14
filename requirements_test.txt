@@ -133,7 +133,7 @@ pytest==8.3.2
     #   pytest-sugar
 pytest-codecov==0.5.1
     # via -r requirements_test.in
-pytest-cov==4.0.0
+pytest-cov==5.0.0
     # via
     #   -r requirements_test.in
     #   pytest-codecov
