@@ -2,9 +2,9 @@
 
 pytest==8.3.2
 pytest-cov==5.0.0
-pytest-django
-pytest-sugar
-pytest-codecov
+pytest-django==4.8.0
+pytest-sugar==1.0.0
+pytest-codecov==0.5.1
 GitPython==3.1.41
 
 # Pinned because pre-commit features specific versions

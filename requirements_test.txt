@@ -137,9 +137,9 @@ pytest-cov==5.0.0
     # via
     #   -r requirements_test.in
     #   pytest-codecov
-pytest-django==3.7.0
+pytest-django==4.8.0
     # via -r requirements_test.in
-pytest-sugar==0.9.2
+pytest-sugar==1.0.0
     # via -r requirements_test.in
 pyyaml==6.0.1
     # via pre-commit
@@ -168,7 +168,7 @@ sqlparse==0.5.0
     # via
     #   -r requirements.in
     #   django
-termcolor==1.1.0
+termcolor==2.4.0
     # via pytest-sugar
 toml==0.10.2
     # via pre-commit-hooks
