@@ -15,3 +15,4 @@ cryptography>=42.0.0
 certifi==2024.07.04
 sqlparse==0.5.0
 setuptools<72
+typing-extensions==4.12.2

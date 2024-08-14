@@ -1,6 +1,6 @@
 -r requirements.in
 
-pytest
+pytest==8.3.2
 pytest-cov
 pytest-django
 pytest-sugar
