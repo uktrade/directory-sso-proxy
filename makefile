@@ -46,8 +46,8 @@ pytest_codecov:
 		$(ARGUMENTS)
 
 requirements:
-	pip-compile requirements.in
-	pip-compile requirements_test.in
+	pip-compile requirements.in --allow-unsafe
+	pip-compile requirements_test.in --allow-unsafe
 
 secrets:
 	@if [ ! -f ./conf/env/secrets-do-not-commit ]; \
