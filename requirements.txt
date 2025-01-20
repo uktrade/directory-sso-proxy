@@ -109,7 +109,7 @@ urllib3==1.26.19
     #   django-revproxy-fix
     #   requests
     #   sentry-sdk
-virtualenv==20.26.1
+virtualenv==20.26.6
     # via pre-commit
 
 # The following packages are considered to be unsafe in a requirements file:
