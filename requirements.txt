@@ -33,7 +33,7 @@ directory-healthcheck==3.7
     # via -r requirements.in
 distlib==0.3.8
     # via virtualenv
-django==4.2.16
+django==4.2.18
     # via
     #   -r requirements.in
     #   directory-components
