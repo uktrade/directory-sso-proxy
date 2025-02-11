@@ -21,7 +21,7 @@ cfgv==3.4.0
     # via pre-commit
 charset-normalizer==3.1.0
     # via requests
-cryptography==43.0.1
+cryptography==44.0.1
     # via -r requirements.in
 directory-components==40.2.3
     # via -r requirements.in
