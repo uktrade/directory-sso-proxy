@@ -78,7 +78,7 @@ gitdb==4.0.10
     # via gitpython
 gitpython==3.1.41
     # via -r requirements_test.in
-gunicorn==22.0.0
+gunicorn==23.0.0
     # via -r requirements.in
 identify==2.5.36
     # via pre-commit
