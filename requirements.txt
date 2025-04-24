@@ -58,7 +58,7 @@ djangorestframework==3.15.2
     #   sigauth
 filelock==3.14.0
     # via virtualenv
-gunicorn==22.0.0
+gunicorn==23.0.0
     # via -r requirements.in
 identify==2.5.36
     # via pre-commit
